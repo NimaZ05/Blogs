@@ -1,0 +1,53 @@
+{% extends "base.html" %} {% load static %}
+
+{% block content %}
+<main class="content">
+  <div class="posts-container">
+    <article class="post-card">
+      <div class="post-image">
+        <img src="https://picsum.photos/800/400" alt="Blog Post Image" />
+      </div>
+      <div class="post-content">
+        <h2>Welcome to Our Blog</h2>
+        <p class="post-meta">Posted by John Doe on March 15, 2024</p>
+        <p class="post-excerpt">
+          This is a sample blog post to demonstrate the design. Lorem ipsum
+          dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+          incididunt ut labore et dolore magna aliqua.
+        </p>
+        <a href="post.html" class="read-more">Read More</a>
+      </div>
+    </article>
+
+    <article class="post-card">
+      <div class="post-image">
+        <img src="https://picsum.photos/800/401" alt="Blog Post Image" />
+      </div>
+      <div class="post-content">
+        <h2>Getting Started with Web Development</h2>
+        <p class="post-meta">Posted by Jane Smith on March 14, 2024</p>
+        <p class="post-excerpt">
+          Learn the basics of web development and how to create your first
+          website. We'll cover HTML, CSS, and JavaScript fundamentals.
+        </p>
+        <a href="{% url 'pages:about'%}" class="read-more">Read More</a>
+      </div>
+    </article>
+
+    <article class="post-card">
+      <div class="post-image">
+        <img src="https://picsum.photos/800/402" alt="Blog Post Image" />
+      </div>
+      <div class="post-content">
+        <h2>The Future of AI</h2>
+        <p class="post-meta">Posted by Mike Johnson on March 13, 2024</p>
+        <p class="post-excerpt">
+          Exploring the latest developments in artificial intelligence and what
+          the future holds for this rapidly evolving technology.
+        </p>
+        <a href="{% url 'pages:about'%}" class="read-more">Read More</a>
+      </div>
+    </article>
+  </div>
+</main>
+{% endblock content %}
