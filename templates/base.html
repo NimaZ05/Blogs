@@ -1,59 +1,108 @@
 {% load static %}
 
-{% block blockname %}{% endblock blockname %}
-    
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Blog Site{% endblock title %}</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>{% block title %}Blogs{% endblock title %}</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
 </head>
 <body>
-    <header class="main-header">
-        <nav class="nav-container">
-            <div class="logo">
-                <a href="{% url 'pages:home'%}">BlogSite</a>
-            </div>
-            <div class="nav-links">
-                <a href="{% url 'pages:home'%}" class="active">Home</a>
-                <a href="{% url 'pages:about'%}">Blog</a>
-                <a href="{% url 'pages:contact'%}">Contact</a>
-                <a href="{% url 'accounts:login'%}">Login</a>
-                <a href="{% url 'accounts:signup'%}">Sign Up</a>
-            </div>
+
+<header class="main-header">
+    <div class="nav-container">
+        <div class="logo">
+            <a href="{% url 'pages:home' %}">Web Design Blog</a>
+        </div>
+        <nav class="nav-links">
+            <a href="{% url 'pages:home' %}">Home</a>
+            <a href="{% url 'blog:blog' %}">Blog</a>
+            <a href="{% url 'pages:about' %}">About</a>
+            <a href="{% url 'pages:contact' %}">Contact</a>
+            {#                <a href="profile.html">Profile</a>#}
+            {#                <a href="login.html" class="active">Login</a>#}
+            {#                <a href="signup.html">Sign Up</a>#}
         </nav>
-    </header>
+    </div>
+</header>
 
-    {% block content %}{% endblock content %}
+{% block content %}
 
-    <footer class="main-footer">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>About Us</h3>
-                <p>Your go-to destination for amazing blog content.</p>
-            </div>
-            <div class="footer-section">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="{% url 'pages:home'%}">Home</a></li>
-                    <li><a href="{% url 'pages:about'%}">Blog</a></li>
-                    <li><a href="{% url 'pages:contact'%}">Contact</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Connect</h3>
-                <div class="social-links">
-                    <a href="#">Twitter</a>
-                    <a href="#">Facebook</a>
-                    <a href="#">Instagram</a>
-                </div>
+{% endblock content %}
+
+
+<footer class="main-footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h3>About</h3>
+            <ul>
+                <li><a href="{% url 'pages:about' %}">Our Story</a></li>
+                <li><a href="{% url 'pages:contact' %}">Contact Us</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3>Blog</h3>
+            <ul>
+                <li><a href="{% url 'pages:home' %}">Home</a></li>
+                <li><a href="{% url 'blog:blog' %}">Blog</a></li>
+                <li><a href="{% url 'blog:post' %}">Latest Posts</a></li>
+                <li><a href="{% url 'pages:contact' %}">Contact</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3>Connect</h3>
+            <div class="social-links">
+                <a href="#">Twitter</a>
+                <a href="#">LinkedIn</a>
+                <a href="#">GitHub</a>
             </div>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2024 BlogSite. All rights reserved.</p>
-        </div>
-    </footer>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2024 Web Design Blog. All rights reserved.</p>
+    </div>
+</footer>
+
+<script src="{% static 'js/theme-toggle.js' %}"></script>
+<script>
+    // Header scroll effect
+    window.addEventListener('scroll', function () {
+        const header = document.querySelector('.main-header');
+        if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    });
+    // Password confirmation validation
+    document.getElementById('confirmPassword').addEventListener('input', function () {
+        const newPassword = document.getElementById('newPassword').value;
+        const confirmPassword = this.value;
+
+        if (newPassword !== confirmPassword) {
+            this.setCustomValidity('Passwords do not match');
+        } else {
+            this.setCustomValidity('');
+        }
+    });
+
+    // Password strength indicator
+    document.getElementById('newPassword').addEventListener('input', function () {
+        const password = this.value;
+        const hint = this.nextElementSibling;
+
+        if (password.length < 8) {
+            hint.textContent = 'Must be at least 8 characters long';
+            hint.style.color = '#ef4444';
+        } else if (password.length >= 8 && password.length < 12) {
+            hint.textContent = 'Good password';
+            hint.style.color = '#f59e0b';
+        } else {
+            hint.textContent = 'Strong password';
+            hint.style.color = '#10b981';
+        }
+    });
+</script>
 </body>
-</html> 
+</html>

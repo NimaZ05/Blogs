@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    Password Reset
+{% endblock title %}
+{% block content %}
+
+    <main class="content">
+        <section class="page-card">
+            <h1 class="page-title">Profile</h1>
+            <p class="page-subtitle">Manage your account information and preferences</p>
+            <div class="profile-grid static">
+                <div class="profile-photo">
+                    <div class="photo-frame">
+                        <img src="https://picsum.photos/400" alt="Profile Photo">
+                    </div>
+                    <label class="upload-btn">
+                        <input type="file" accept="image/*">
+                        Change Photo
+                    </label>
+                </div>
+                <div class="profile-info">
+                    <h2 class="info-name">John Doe</h2>
+                    <p class="info-role">Web Developer • Content Creator</p>
+                    <ul class="info-list">
+                        <li>
+                            <span class="info-label">First Name</span>
+                            <span class="info-value">John</span>
+                        </li>
+                        <li>
+                            <span class="info-label">Last Name</span>
+                            <span class="info-value">Doe</span>
+                        </li>
+                        <li>
+                            <span class="info-label">Email</span>
+                            <span class="info-value">john.doe@example.com</span>
+                        </li>
+                        <li>
+                            <span class="info-label">Location</span>
+                            <span class="info-value">San Francisco, CA</span>
+                        </li>
+                        <li>
+                            <span class="info-label">Website</span>
+                            <span class="info-value">johndoe.dev</span>
+                        </li>
+                        <li>
+                            <span class="info-label">Bio</span>
+                            <span class="info-value">Web developer passionate about creating beautiful and functional websites. I love working with modern technologies and helping others learn.</span>
+                        </li>
+                    </ul>
+
+                    <div class="profile-actions">
+                        <a href="password_change.html" class="action-btn">Change Password</a>
+                        <a href="delete_account.html" class="action-btn danger">Delete Account</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+{% endblock content %}

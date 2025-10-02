@@ -1,32 +1,50 @@
-{% extends "base.html" %} {% load static %} 
+{% extends "base.html" %} {% load static %}
 {% block content %}
-<main class="content">
-  <div class="auth-container">
-    <div class="auth-box">
-      <h2>Sign Up</h2>
-      <form class="auth-form">
-        <div class="form-group">
-          <label for="username">Username</label>
-          <input type="text" id="username" name="username" required />
+
+    <main class="content">
+        <div class="auth-container">
+            <div class="auth-box">
+                <h2>Create Account</h2>
+                <p class="auth-subtitle">Join our community and start your journey</p>
+
+                <form class="auth-form" action="#" method="post">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required>
+                        <span class="form-hint">Must be at least 8 characters long</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <input type="password" id="confirmPassword" name="confirm_password" required>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="terms" required>
+                            I agree to the <a href="#" class="terms-link">Terms of Service</a> and <a href="#"
+                                                                                                      class="terms-link">Privacy
+                            Policy</a>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="auth-button">Create Account</button>
+                </form>
+
+                <div class="auth-links">
+                    <p>Already have an account? <a href="login.html" class="switch-form">Sign in here</a></p>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" required />
-        </div>
-        <div class="form-group">
-          <label for="password1">Password</label>
-          <input type="password" id="password1" name="password1" required />
-        </div>
-        <div class="form-group">
-          <label for="password2">Confirm Password</label>
-          <input type="password" id="password2" name="password2" required />
-        </div>
-        <button type="submit" class="auth-button">Sign Up</button>
-      </form>
-      <div class="auth-links">
-        <p>Already have an account? <a href="{% url 'accounts:login' %}">Login</a></p>
-      </div>
-    </div>
-  </div>
-</main>
+    </main>
 {% endblock content %}

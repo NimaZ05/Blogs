@@ -1,7 +1,42 @@
-{% extends 'base.html' %} {% load static %} 
+{% extends 'base.html' %} {% load static %}
 
 {% block title %} About {% endblock title %}
 
 {% block content %}
-  <h1>This is about Us section</h1>
+
+    <main class="content">
+        <section class="page-card">
+            <h1 class="page-title">About</h1>
+            <p class="page-subtitle">A brief profile with key contact details.</p>
+            <div class="profile-grid static">
+                <div class="profile-photo">
+                    <div class="photo-frame">
+                        <img src="https://picsum.photos/400" alt="Profile Photo">
+                    </div>
+                </div>
+                <div class="profile-info">
+                    <h2 class="info-name">John Doe</h2>
+                    <p class="info-role">Content Creator • Blogger</p>
+                    <ul class="info-list">
+                        <li>
+                            <span class="info-label">First Name</span>
+                            <span class="info-value">John</span>
+                        </li>
+                        <li>
+                            <span class="info-label">Last Name</span>
+                            <span class="info-value">Doe</span>
+                        </li>
+                        <li>
+                            <span class="info-label">Phone</span>
+                            <span class="info-value">+1 555 123 4567</span>
+                        </li>
+                        <li>
+                            <span class="info-label">Email</span>
+                            <span class="info-value">john@example.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
 {% endblock content %}

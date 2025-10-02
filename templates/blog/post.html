@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% block title %}
+    Post
+{% endblock title %}
+{% block content %}
+
+    <main class="content">
+        <article class="post-detail">
+            <!-- Post Header -->
+            <header class="post-header">
+                <div class="post-meta-info">
+                    <span class="meta-chip category">UI/UX</span>
+                    <span class="meta-chip tag">#darkmode</span>
+                    <span class="meta-chip tag">#accessibility</span>
+                </div>
+                <h1 class="post-title">Designing for Dark Mode</h1>
+                <div class="post-meta-details">
+                    <span class="post-date">March 15, 2024</span>
+                    <span class="post-views">1.2k views</span>
+                    <span class="post-comments">12 comments</span>
+                </div>
+            </header>
+
+            <!-- Featured Image -->
+            <div class="post-featured-image">
+                <img src="https://picsum.photos/1200/600?1" alt="Designing for Dark Mode">
+            </div>
+
+            <!-- Post Content -->
+            <div class="post-body">
+                <p class="post-intro">
+                    Dark mode has become an essential feature in modern web design. Not only does it reduce eye strain
+                    in low-light conditions, but it also provides a sleek, modern aesthetic that users love. In this
+                    comprehensive guide, we'll explore the best practices for implementing dark mode in your web
+                    applications.
+                </p>
+
+                <h2>Understanding Dark Mode Benefits</h2>
+                <p>
+                    Dark mode isn't just a trend—it's a practical solution for many users. Studies have shown that dark
+                    interfaces can reduce eye strain by up to 40% in low-light environments. Additionally, dark mode can
+                    help conserve battery life on OLED displays, making it an eco-friendly choice for mobile users.
+                </p>
+
+                <h3>Key Considerations</h3>
+                <ul>
+                    <li>Contrast ratios must meet WCAG guidelines</li>
+                    <li>Color choices should maintain brand identity</li>
+                    <li>Images and media need careful handling</li>
+                    <li>User preference should be remembered</li>
+                </ul>
+
+                <h2>Implementation Strategies</h2>
+                <p>
+                    When implementing dark mode, consider using CSS custom properties (variables) to make the transition
+                    smooth. This approach allows you to define color schemes that can be easily switched based on user
+                    preference or system settings.
+                </p>
+
+                <blockquote class="post-quote">
+                    "The best dark mode is one that feels natural and doesn't compromise readability or accessibility."
+                </blockquote>
+
+                <h2>Testing and Accessibility</h2>
+                <p>
+                    Always test your dark mode implementation with real users and accessibility tools. Ensure that text
+                    remains readable, interactive elements are clearly defined, and the overall experience enhances
+                    rather than hinders usability.
+                </p>
+
+                <p>
+                    Remember, dark mode should be an enhancement to your design, not a replacement for good UX
+                    practices. Focus on creating an experience that works seamlessly across all themes.
+                </p>
+            </div>
+
+            <!-- Author Section -->
+            <div class="post-author">
+                <div class="author-avatar">
+                    <img src="https://picsum.photos/80/80?10" alt="John Doe">
+                </div>
+                <div class="author-info">
+                    <h3 class="author-name">John Doe</h3>
+                    <p class="author-bio">UI/UX Designer with 5+ years of experience in creating accessible and
+                        beautiful digital experiences. Passionate about inclusive design and user-centered
+                        solutions.</p>
+                    <div class="author-social">
+                        <a href="#" class="social-link">Twitter</a>
+                        <a href="#" class="social-link">LinkedIn</a>
+                        <a href="#" class="social-link">Portfolio</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Related Posts -->
+            <section class="related-posts">
+                <h3>Related Articles</h3>
+                <div class="related-grid">
+                    <article class="related-post">
+                        <div class="related-image">
+                            <img src="https://picsum.photos/300/200?2" alt="CSS Grid vs Flexbox">
+                        </div>
+                        <div class="related-content">
+                            <h4>CSS Grid vs Flexbox</h4>
+                            <p>When to use Grid, when to use Flex, and how to combine them effectively.</p>
+                            <a href="post.html" class="read-more">Read More</a>
+                        </div>
+                    </article>
+                    <article class="related-post">
+                        <div class="related-image">
+                            <img src="https://picsum.photos/300/200?3" alt="Django Templates 101">
+                        </div>
+                        <div class="related-content">
+                            <h4>Django Templates 101</h4>
+                            <p>A quick primer on building clean, reusable template structures for your app.</p>
+                            <a href="post.html" class="read-more">Read More</a>
+                        </div>
+                    </article>
+                </div>
+            </section>
+        </article>
+    </main>
+
+{% endblock content %}

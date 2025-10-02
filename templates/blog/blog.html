@@ -1,0 +1,176 @@
+{% extends 'base.html' %}
+{% block title %}
+    Blogs
+{% endblock title %}
+{% block content %}
+    <main class="content">
+        <h1 class="page-title">Latest Posts</h1>
+
+        <div class="blog-topbar">
+            <form class="search-bar" action="#">
+                <label>
+                    <input type="text" placeholder="Search posts...">
+                </label>
+                <button type="submit">Search</button>
+            </form>
+        </div>
+
+        <div class="blog-layout">
+            <section class="blog-main">
+                <div class="posts-stack">
+                    <article class="post-row">
+                        <aside class="post-aside">
+                            <span class="meta-chip category">EA</span>
+                            <span class="meta">nima</span>
+                            <span class="meta">2025-09-15</span>
+                            <span class="meta">2 Views</span>
+                            <span class="meta">2 Comments</span>
+                        </aside>
+                        <div class="post-card wide">
+                            <div class="post-image">
+                                <img src="https://picsum.photos/900/380?10" alt="Post cover">
+                            </div>
+                            <div class="post-content post-content-row">
+                                <div class="post-text">
+                                    <h2>spider man</h2>
+                                    <div class="post-meta-row">
+                                        <span class="meta-chip tag">#movie</span>
+                                        <span class="meta-chip tag">#spiderman</span>
+                                        <span class="meta">by nima</span>
+                                        <span class="meta">2025-09-15</span>
+                                    </div>
+                                    <p class="post-excerpt">spider man is so cool man, I can't wait until 2027 for new
+                                        spider I think it gonna be so amazing with a lot of surprising scenes</p>
+                                </div>
+                                <div class="post-cta">
+                                    <a href="post.html" class="read-more fixed">View More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="post-row">
+                        <aside class="post-aside">
+                            <span class="meta-chip category">UI/UX</span>
+                            <span class="meta">johndoe</span>
+                            <span class="meta">2024-03-15</span>
+                            <span class="meta">1.2k Views</span>
+                            <span class="meta">12 Comments</span>
+                        </aside>
+                        <div class="post-card wide">
+                            <div class="post-image">
+                                <img src="https://picsum.photos/900/380?11" alt="Post cover">
+                            </div>
+                            <div class="post-content post-content-row">
+                                <div class="post-text">
+                                    <h2>Designing for Dark Mode</h2>
+                                    <div class="post-meta-row">
+                                        <span class="meta-chip tag">#darkmode</span>
+                                        <span class="meta-chip tag">#accessibility</span>
+                                        <span class="meta">by johndoe</span>
+                                        <span class="meta">Mar 15, 2024</span>
+                                    </div>
+                                    <p class="post-excerpt">Tips for building accessible and beautiful dark themes that
+                                        users love.</p>
+                                </div>
+                                <div class="post-cta">
+                                    <a href="{% url 'blog:post' %}" class="read-more fixed">View More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="post-row">
+                        <aside class="post-aside">
+                            <span class="meta-chip category">Frontend</span>
+                            <span class="meta">janesmith</span>
+                            <span class="meta">2024-03-12</span>
+                            <span class="meta">940 Views</span>
+                            <span class="meta">8 Comments</span>
+                        </aside>
+                        <div class="post-card wide">
+                            <div class="post-image">
+                                <img src="https://picsum.photos/900/380?12" alt="Post cover">
+                            </div>
+                            <div class="post-content post-content-row">
+                                <div class="post-text">
+                                    <h2>CSS Grid vs Flexbox</h2>
+                                    <div class="post-meta-row">
+                                        <span class="meta-chip tag">#css</span>
+                                        <span class="meta-chip tag">#grid</span>
+                                        <span class="meta">by janesmith</span>
+                                        <span class="meta">Mar 12, 2024</span>
+                                    </div>
+                                    <p class="post-excerpt">When to use Grid, when to use Flex, and how to combine them
+                                        effectively.</p>
+                                </div>
+                                <div class="post-cta">
+                                    <a href="post.html" class="read-more fixed">View More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <nav class="pagination">
+                    <a class="page-btn" href="#">Prev</a>
+                    <a class="page-btn active" href="#">1</a>
+                    <a class="page-btn" href="#">2</a>
+                    <a class="page-btn" href="#">3</a>
+                    <a class="page-btn" href="#">Next</a>
+                </nav>
+            </section>
+
+            <aside class="blog-sidebar">
+                <div class="page-card">
+                    <h3 class="sidebar-title">Categories</h3>
+                    <ul class="category-list">
+                        <li><a href="#" class="category-link">EA</a></li>
+                        <li><a href="#" class="category-link">UI/UX</a></li>
+                        <li><a href="#" class="category-link">Frontend</a></li>
+                        <li><a href="#" class="category-link">Backend</a></li>
+                        <li><a href="#" class="category-link">Performance</a></li>
+                    </ul>
+                </div>
+
+                <div class="page-card">
+                    <h3 class="sidebar-title">Tags</h3>
+                    <div class="tags-container">
+                        <a href="#" class="tag-link">#movie</a>
+                        <a href="#" class="tag-link">#css</a>
+                        <a href="#" class="tag-link">#grid</a>
+                        <a href="#" class="tag-link">#javascript</a>
+                        <a href="#" class="tag-link">#react</a>
+                        <a href="#" class="tag-link">#vue</a>
+                        <a href="#" class="tag-link">#nodejs</a>
+                        <a href="#" class="tag-link">#python</a>
+                        <a href="#" class="tag-link">#design</a>
+                        <a href="#" class="tag-link">#tutorial</a>
+                        <a href="#" class="tag-link">#webdev</a>
+                        <a href="#" class="tag-link">#programming</a>
+                        <a href="#" class="tag-link">#frontend</a>
+                        <a href="#" class="tag-link">#backend</a>
+                        <a href="#" class="tag-link">#database</a>
+                        <a href="#" class="tag-link">#api</a>
+                        <a href="#" class="tag-link">#mobile</a>
+                        <a href="#" class="tag-link">#responsive</a>
+                    </div>
+                </div>
+
+                <div class="page-card">
+                    <h3 class="sidebar-title">Newsletter</h3>
+                    <div class="newsletter-content">
+                        <p class="newsletter-text">Stay updated with our latest posts and exclusive content.</p>
+                        <form class="newsletter-form" action="#">
+                            <label>
+                                <input type="email" placeholder="Enter your email" class="newsletter-input">
+                            </label>
+                            <button type="submit" class="newsletter-btn">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+{% endblock content %}
+

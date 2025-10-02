@@ -1,0 +1,144 @@
+/* CSS Variables for Light/Dark Mode */
+:root {
+    /* Dark Mode (Default) */
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #252525;
+    --bg-tertiary: #2a2a2a;
+    --bg-card: #252525;
+    --bg-input: #2b2b2b;
+    --bg-hover: #3a3a3a;
+    
+    --text-primary: #fff;
+    --text-secondary: #d3d3d3;
+    --text-muted: #9aa3af;
+    --text-placeholder: #aab2bd;
+    
+    --border-color: #3a3a3a;
+    --border-focus: #4a90e2;
+    
+    --accent-primary: #4a90e2;
+    --accent-secondary: #357abd;
+    --accent-hover: #2c5aa0;
+    
+    --shadow-light: rgba(0, 0, 0, 0.1);
+    --shadow-medium: rgba(0, 0, 0, 0.2);
+    --shadow-heavy: rgba(0, 0, 0, 0.3);
+    --shadow-accent: rgba(74, 144, 226, 0.3);
+}
+
+/* Light Mode */
+[data-theme="light"] {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8f9fa;
+    --bg-tertiary: #e9ecef;
+    --bg-card: #ffffff;
+    --bg-input: #ffffff;
+    --bg-hover: #f1f3f4;
+    
+    --text-primary: #000000;
+    --text-secondary: #1a1a1a;
+    --text-muted: #2d2d2d;
+    --text-placeholder: #6b7280;
+    
+    --border-color: #d1d5db;
+    --border-focus: #4a90e2;
+    
+    --accent-primary: #4a90e2;
+    --accent-secondary: #357abd;
+    --accent-hover: #2c5aa0;
+    
+    --shadow-light: rgba(0, 0, 0, 0.1);
+    --shadow-medium: rgba(0, 0, 0, 0.2);
+    --shadow-heavy: rgba(0, 0, 0, 0.3);
+    --shadow-accent: rgba(74, 144, 226, 0.3);
+}
+
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    background-color: var(--bg-primary);
+    color: var(--text-secondary);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-primary);
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+h1 {
+    font-size: 2.5rem;
+}
+
+h2 {
+    font-size: 2rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+}
+
+h4 {
+    font-size: 1.25rem;
+}
+
+p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+a {
+    color: var(--accent-primary);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--accent-secondary);
+}
+
+/* Lists */
+ul, ol {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+}
+
+li {
+    margin-bottom: 0.5rem;
+}
+
+/* Images */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Form elements */
+input, textarea, select {
+    font-family: inherit;
+    font-size: inherit;
+}
+
+/* Focus styles */
+*:focus {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 2px;
+}
+
+/* Selection styles */
+::selection {
+    background-color: var(--accent-primary);
+    color: #fff;
+}

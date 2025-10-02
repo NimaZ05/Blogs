@@ -1,27 +1,43 @@
 {% extends "base.html" %}
-
 {% load static %}
+{% block title %}
+	Login
+{% endblock title%}
 {% block content %}
-<main class="content">
-    <div class="auth-container">
+
+    <main class="content">
+        <div class="auth-container">
             <div class="auth-box">
-                <h2>Login</h2>
-                <form class="auth-form">
+                <h2>Welcome Back</h2>
+                <p class="auth-subtitle">Sign in to your account to continue</p>
+
+                <form class="auth-form" action="#" method="post">
                     <div class="form-group">
-                        <label for="username">Username</label>
-                        <input type="text" id="username" name="username" required>
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
                     </div>
+
                     <div class="form-group">
                         <label for="password">Password</label>
                         <input type="password" id="password" name="password" required>
                     </div>
-                    <button type="submit" class="auth-button">Login</button>
+
+                    <div class="form-options">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="remember">
+                            Remember me
+                        </label>
+                        <a href="password_reset.html" class="forgot-link">Forgot password?</a>
+                    </div>
+
+                    <button type="submit" class="auth-button">Sign In</button>
                 </form>
+
                 <div class="auth-links">
-                    <p>Don't have an account? <a href="{% url 'accounts:signup' %}">Sign Up</a></p>
-                    <a href="#">Forgot Password?</a>
+                    <p>Don't have an account? <a href="signup.html" class="switch-form">Create one here</a></p>
                 </div>
             </div>
         </div>
     </main>
+
 {% endblock content %}

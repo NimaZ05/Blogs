@@ -1,5 +1,37 @@
-{% extends 'base.html' %} {% load static %} 
-{% block title %}contact{% endblock title %}
+{% extends 'base.html' %} {% load static %}
+
+{% block title %} About {% endblock title %}
+
 {% block content %}
-<h1>This is Contact us section</h1>
+
+    <main class="content">
+        <section class="contact-card page-card">
+            <h1 class="contact-title">Contact Us</h1>
+            <form class="contact-form clean-form">
+
+                <div class="form-group full">
+                    <input type="text" id="name" name="name" placeholder="Full Name *" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" placeholder="Email *" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" id="phone" name="phone" placeholder="Phone">
+                    </div>
+                </div>
+
+                <div class="form-group full">
+                    <textarea id="message" name="message" rows="6" placeholder="Your message here..."
+                              required></textarea>
+                </div>
+
+                <div class="form-actions full">
+                    <button class="auth-button" type="submit">Submit →</button>
+                </div>
+            </form>
+        </section>
+    </main>
+
 {% endblock content %}

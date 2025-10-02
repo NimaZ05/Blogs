@@ -1,0 +1,19 @@
+/* Main CSS File - Imports all other CSS files */
+
+/* Base styles - Reset, typography, and fundamental styles */
+@import 'base.css';
+
+/* Component styles - Buttons, forms, cards, and reusable components */
+@import 'components.css';
+
+/* Layout styles - Header, footer, grid systems, and page structure */
+@import 'layout.css';
+
+/* Page-specific styles - Individual page layouts and content */
+@import 'pages.css';
+
+/* Theme toggle styles */
+@import 'theme-toggle.css';
+
+/* Utility classes - Helpers, responsive design, and utility functions */
+@import 'utilities.css';
