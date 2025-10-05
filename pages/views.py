@@ -1,26 +1,27 @@
+from contextlib import contextmanager
+from blog.models import Post
 from django.shortcuts import render
 from django.views.generic import TemplateView
 
 
-class HomePageView(TemplateView):
-    template_name = 'pages/index.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
-
-
-class AboutPageView(TemplateView):
-    template_name = 'pages/about.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
+def home_view(request):
+    latest_posts = Post.objects.order_by('-published_date')[:3]
+    context = {
+        'latest_posts':latest_posts,
+        'title': 'Home',
+    }
+    return render(request, 'pages/index.html', context)
 
 
-class ContactPageView(TemplateView):
-    template_name = 'pages/contact.html'
+def about_view(request):
+    context = {
+        'title': 'About Us',
+    }
+    return render(request, 'pages/about.html', context)
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
+
+def contact_view(request):
+    context = {
+        'title': 'Contact Us',
+    }
+    return render(request, 'pages/contact.html', context)

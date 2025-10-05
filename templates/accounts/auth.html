@@ -1,8 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}
-
-{% endblock %}
+{% block title %}Registration{% endblock title %}
 {% block content %}
     <main class="content">
         <div class="auth-container">
@@ -11,7 +9,7 @@
                 <p class="auth-subtitle">Choose how you'd like to access your account</p>
 
                 <div class="auth-options">
-                    <a href="login.html" class="auth-option-btn">
+                    <a href="{% url 'accounts:login' %}" class="auth-option-btn">
                         <div class="auth-option-icon">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                  stroke-width="2">
@@ -26,7 +24,7 @@
                         </div>
                     </a>
 
-                    <a href="signup.html" class="auth-option-btn">
+                    <a href="{%  url 'accounts:signup' %}" class="auth-option-btn">
                         <div class="auth-option-icon">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                  stroke-width="2">
@@ -44,7 +42,7 @@
                 </div>
 
                 <div class="auth-links">
-                    <p>Need help? <a href="contact.html">Contact Support</a></p>
+                    <p>Need help? <a href="{% url 'pages:contact' %}">Contact Support</a></p>
                 </div>
             </div>
         </div>

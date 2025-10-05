@@ -5,25 +5,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Blogs{% endblock title %}</title>
+    <title>{% if title %}{{ title }} | BlogSite{% else %}BlogSite{% endif %}</title>
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
 </head>
 <body>
-
 <header class="main-header">
     <div class="nav-container">
         <div class="logo">
             <a href="{% url 'pages:home' %}">Web Design Blog</a>
         </div>
-        <nav class="nav-links">
-            <a href="{% url 'pages:home' %}">Home</a>
-            <a href="{% url 'blog:blog' %}">Blog</a>
-            <a href="{% url 'pages:about' %}">About</a>
-            <a href="{% url 'pages:contact' %}">Contact</a>
-            {#                <a href="profile.html">Profile</a>#}
-            {#                <a href="login.html" class="active">Login</a>#}
-            {#                <a href="signup.html">Sign Up</a>#}
-        </nav>
+        <div class="nav-links">
+            <div class="nav-links">
+                {% url 'pages:home' as home_url %}
+                <a href="{{ home_url }}" class="{% if request.path == home_url %}active{% endif %}">Home</a>
+                {% url 'blog:blog_home' as blog_url %}
+                <a href="{{ blog_url }}" class="{% if request.path == blog_url %}active{% endif %}">Blog</a>
+                {% url 'pages:about' as about_url %}
+                <a href="{{ about_url }}" class="{% if request.path == about_url %}active{% endif %}">About</a>
+                {% url 'pages:contact' as contact_url %}
+                <a href="{{ contact_url }}" class="{% if request.path == contact_url %}active{% endif %}">Contact</a>
+                {% url 'accounts:profile' as profile_url %}
+                <a href="{{ profile_url }}" class="{% if request.path == profile_url %}active{% endif %}">Profile</a>
+                {% url 'accounts:auth' as auth_url %}
+                <a href="{{ auth_url }}" class="auth-link-active {% if request.path == auth_url %}active{% endif %}">Registration</a>
+            </div>
+
+        </div>
     </div>
 </header>
 
@@ -45,9 +52,9 @@
             <h3>Blog</h3>
             <ul>
                 <li><a href="{% url 'pages:home' %}">Home</a></li>
-                <li><a href="{% url 'blog:blog' %}">Blog</a></li>
-                <li><a href="{% url 'blog:post' %}">Latest Posts</a></li>
-                <li><a href="{% url 'pages:contact' %}">Contact</a></li>
+                <li><a href="{% url 'blog:blog_home' %}">Blog</a></li>
+{#                <li><a href="{% url 'blog:post_detail' slug=post.slug%}">Latest Posts</a></li>#}
+                <li><a href="{% url 'pages:contact' %}">Contact</a></li >
             </ul>
         </div>
         <div class="footer-section">

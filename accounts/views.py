@@ -1,17 +1,37 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView
+from django.template.defaultfilters import title
 
 
-class LoginView(TemplateView):
-    template_name = 'accounts/login.html'
+def auth_page(request):
+    context = {
+        'title': 'Registration'
+    }
+    return render(request, 'accounts/auth.html', context)
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
-class SignUpView(TemplateView):
-    template_name = 'accounts/signup.html'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
+def login_view(request):
+    context = {
+        'title': 'Login'
+    }
+    return render(request, 'accounts/login.html', context)
 
+
+def logout_view(request):
+    context = {
+        'title': 'Logout'
+    }
+    return render(request, 'accounts/login.html', context)
+
+
+def signup_view(request):
+    context = {
+        'title': 'Signup'
+    }
+    return render(request, 'accounts/signup.html', context)
+
+
+def profile_page(request):
+    context = {
+        'title': 'Profile'
+    }
+    return render(request, 'accounts/profile.html', context)

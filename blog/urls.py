@@ -4,6 +4,6 @@ from .views import *
 app_name = 'blog'
 
 urlpatterns = [
-    path('', BlogPageView.as_view(), name='blog'),
-    path('<post>', PostPageView.as_view(), name='post'), # /post/<slug:slug>
+    path('', blog_home, name='blog_home'),
+    path('post/<slug:slug>/', post_view, name='post_detail'), # /post/<slug:slug>
 ]

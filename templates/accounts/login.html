@@ -1,8 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}
-	Login
-{% endblock title%}
+{% block title %}Login{% endblock title%}
 {% block content %}
 
     <main class="content">
@@ -27,14 +25,14 @@
                             <input type="checkbox" name="remember">
                             Remember me
                         </label>
-                        <a href="password_reset.html" class="forgot-link">Forgot password?</a>
+                        <a href="#" class="forgot-link">Forgot password?</a>
                     </div>
 
                     <button type="submit" class="auth-button">Sign In</button>
                 </form>
 
                 <div class="auth-links">
-                    <p>Don't have an account? <a href="signup.html" class="switch-form">Create one here</a></p>
+                    <p>Don't have an account? <a href="{% url 'accounts:login' %}" class="switch-form">Create one here</a></p>
                 </div>
             </div>
         </div>

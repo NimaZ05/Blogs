@@ -18,98 +18,46 @@
         <div class="blog-layout">
             <section class="blog-main">
                 <div class="posts-stack">
-                    <article class="post-row">
-                        <aside class="post-aside">
-                            <span class="meta-chip category">EA</span>
-                            <span class="meta">nima</span>
-                            <span class="meta">2025-09-15</span>
-                            <span class="meta">2 Views</span>
-                            <span class="meta">2 Comments</span>
-                        </aside>
-                        <div class="post-card wide">
-                            <div class="post-image">
-                                <img src="https://picsum.photos/900/380?10" alt="Post cover">
-                            </div>
-                            <div class="post-content post-content-row">
-                                <div class="post-text">
-                                    <h2>spider man</h2>
-                                    <div class="post-meta-row">
-                                        <span class="meta-chip tag">#movie</span>
-                                        <span class="meta-chip tag">#spiderman</span>
-                                        <span class="meta">by nima</span>
-                                        <span class="meta">2025-09-15</span>
+                    {% for post in posts %}
+                        <article class="post-row">
+                            <aside class="post-aside">
+                                {% if post.category %}
+                                    <span class="meta-chip category">{{ post.category.name }}</span>
+                                {% else %}
+                                    <span class="meta-chip category">Uncategorized</span>
+                                {% endif %}
+                                <span class="meta">{{ post.author }}</span>
+                                <span class="meta">{{ post.published_date|date:"Y-m-d" }}</span>
+                                <span class="meta">{{ post.counted_view }} Views</span>
+                                <span class="meta">2 Comments</span>
+                            </aside>
+                            <div class="post-card wide">
+                                <div class="post-image">
+                                    <img src="{{ post.image.url }}" alt="Post cover">
+                                </div>
+                                <div class="post-content post-content-row">
+                                    <div class="post-text">
+                                        <h2>{{ post.title }}</h2>
+                                        <div class="post-meta-row">
+                                            {% for tag in post.tags.all %}
+                                                <span class="meta-chip tag">#{{ tag.name }}</span>
+                                            {% endfor %}
+                                            <span class="meta">by {{ post.author }}</span>
+                                            <span class="meta">{{ post.published_date|date:"Y-m-d" }}</span>
+                                        </div>
+                                        <p class="post-excerpt">{{ post.content }}
+                                            lorem kasdaksd kad klajkldasjdklzxj lkajdlka jdklaj ladlka jdlk jaklsdj
+                                            akljd askld <lk></lk>j dklajdakl jaslkjd akljd lkajd klajd lkajdlkaj daklj dalkjds
+                                            klajs kljdalk j</p>
                                     </div>
-                                    <p class="post-excerpt">spider man is so cool man, I can't wait until 2027 for new
-                                        spider I think it gonna be so amazing with a lot of surprising scenes</p>
-                                </div>
-                                <div class="post-cta">
-                                    <a href="post.html" class="read-more fixed">View More</a>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="post-row">
-                        <aside class="post-aside">
-                            <span class="meta-chip category">UI/UX</span>
-                            <span class="meta">johndoe</span>
-                            <span class="meta">2024-03-15</span>
-                            <span class="meta">1.2k Views</span>
-                            <span class="meta">12 Comments</span>
-                        </aside>
-                        <div class="post-card wide">
-                            <div class="post-image">
-                                <img src="https://picsum.photos/900/380?11" alt="Post cover">
-                            </div>
-                            <div class="post-content post-content-row">
-                                <div class="post-text">
-                                    <h2>Designing for Dark Mode</h2>
-                                    <div class="post-meta-row">
-                                        <span class="meta-chip tag">#darkmode</span>
-                                        <span class="meta-chip tag">#accessibility</span>
-                                        <span class="meta">by johndoe</span>
-                                        <span class="meta">Mar 15, 2024</span>
+                                    <div class="post-cta">
+                                        <a href="{% url 'blog:post_detail' slug=post.slug %}"
+                                           class="read-more fixed">{{ post.title }}</a>
                                     </div>
-                                    <p class="post-excerpt">Tips for building accessible and beautiful dark themes that
-                                        users love.</p>
-                                </div>
-                                <div class="post-cta">
-                                    <a href="{% url 'blog:post' %}" class="read-more fixed">View More</a>
                                 </div>
                             </div>
-                        </div>
-                    </article>
-
-                    <article class="post-row">
-                        <aside class="post-aside">
-                            <span class="meta-chip category">Frontend</span>
-                            <span class="meta">janesmith</span>
-                            <span class="meta">2024-03-12</span>
-                            <span class="meta">940 Views</span>
-                            <span class="meta">8 Comments</span>
-                        </aside>
-                        <div class="post-card wide">
-                            <div class="post-image">
-                                <img src="https://picsum.photos/900/380?12" alt="Post cover">
-                            </div>
-                            <div class="post-content post-content-row">
-                                <div class="post-text">
-                                    <h2>CSS Grid vs Flexbox</h2>
-                                    <div class="post-meta-row">
-                                        <span class="meta-chip tag">#css</span>
-                                        <span class="meta-chip tag">#grid</span>
-                                        <span class="meta">by janesmith</span>
-                                        <span class="meta">Mar 12, 2024</span>
-                                    </div>
-                                    <p class="post-excerpt">When to use Grid, when to use Flex, and how to combine them
-                                        effectively.</p>
-                                </div>
-                                <div class="post-cta">
-                                    <a href="post.html" class="read-more fixed">View More</a>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
+                        </article>
+                    {% endfor %}
                 </div>
 
                 <nav class="pagination">

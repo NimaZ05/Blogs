@@ -1,3 +1,13 @@
 from django.db import models
 
-# Create your models here.
+class Contact(models.Model):
+
+
+    class Meta:
+        pass
+    def __str__(self):
+        pass
+
+
+class Newsletter(models.Model):
+    pass
