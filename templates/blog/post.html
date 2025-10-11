@@ -1,88 +1,89 @@
 {% extends 'base.html' %}
 {% block content %}
 
-    <main class="content">
-        <article class="post-detail">
-            <!-- Post Header -->
-            <header class="post-header">
-                <div class="post-meta-info">
+<main class="content">
+    <article class="post-detail">
+        <!-- Post Header -->
+        <header class="post-header">
+            <div class="post-meta-info">
 
-                    {% if post.category %}
-                        <span class="meta-chip category">{{ post.category.name }}</span>
-                    {% else %}
-                        <span class="meta-chip category">Uncategorized</span>
-                    {% endif %}
+                {% if post.category %}
+                    <span class="meta-chip category">{{ post.category.name }}</span>
+                {% else %}
+                    <span class="meta-chip category">Uncategorized</span>
+                {% endif %}
 
-                    {% for tag in post.tags.all %}
-                        <span class="meta-chip tag">#{{ tag.name }}</span>
-                    {% endfor %}
-
-                </div>
-                <h1 class="post-title">{{ post.title }}</h1>
-                <div class="post-meta-details">
-                    <span class="post-date">{{ post.published_date|date:"d-m-y" }}</span>
-                    <span class="post-views">{{ post.counted_view }} views</span>
-                    <span class="post-comments">12 comments</span>
-                </div>
-            </header>
-
-            <!-- Featured Image -->
-            <div class="post-featured-image">
-                <img src="{{ post.image.url }}" alt="{{ post.title }}">
-            </div>
-
-            <!-- Post Content -->
-            <div class="post-body">
-                <p class="post-intro">
-                    {{ post.content|safe }}
-                </p>
+                {% for tag in post.tags.all %}
+                    <span class="meta-chip tag">#{{ tag.name }}</span>
+                {% endfor %}
 
             </div>
-            <!-- Author Section -->
-            <div class="post-author">
-                <div class="author-avatar">
-                    <img src="" alt="{{ post.author } }">
-                </div>
-                <div class="author-info">
-                    <h3 class="author-name">{{ post.author }}</h3>
-                    <p class="author-bio">UI/UX Designer with 5+ years of experience in creating accessible and
-                        beautiful digital experiences. Passionate about inclusive design and user-centered
-                        solutions.</p>
-                    <div class="author-social">
-                        <a href="#" class="social-link">Twitter</a>
-                        <a href="#" class="social-link">LinkedIn</a>
-                        <a href="#" class="social-link">Portfolio</a>
-                    </div>
+            <h1 class="post-title">{{ post.title }}</h1>
+            <div class="post-meta-details">
+                <span class="post-date">{{ post.published_date|date:"d-m-Y" }}</span>
+                <span class="post-views">{{ post.counted_view }} views</span>
+                <span class="post-comments">12 comments</span>
+            </div>
+        </header>
+
+        <!-- Featured Image -->
+        <div class="post-featured-image">
+            <img src="{{ post.image.url }}" alt="{{ post.title }}"> # {{ post.author.profile.image.url }}
+        </div>
+
+        <!-- Post Content -->
+        <div class="post-body">
+            <p class="post-intro">
+                {{ post.content|safe }}
+            </p>
+
+        </div>
+        <!-- Author Section -->
+        <div class="post-author">
+            <div class="author-avatar">
+                <img src="" alt="{{ post.author }}"/>
+            </div>
+            <div class="author-info">
+                <h3 class="author-name"><a
+                        href="#">{{ post.author }}</a>  <!--  'blog:author' author_username=post.author.username -->
+                </h3>
+                <p class="author-bio">UI/UX Designer with 5+ years of experience in creating accessible and
+                    beautiful digital experiences. Passionate about inclusive design and user-centered
+                    solutions.</p>
+                <div class="author-social">
+                    <a href="#" class="social-link">Twitter</a>
+                    <a href="#" class="social-link">LinkedIn</a>
+                    <a href="#" class="social-link">Portfolio</a>
                 </div>
             </div>
+        </div>
 
-            <!-- Related Posts -->
-            <section class="related-posts">
-                <h3>Related Articles</h3>
-                <div class="related-grid">
+        <!-- Related Posts -->
+        <section class="related-posts">
+            <h3>Related Articles</h3>
+            <div class="related-grid">
+                {% for related_post in related_posts %}
                     <article class="related-post">
                         <div class="related-image">
-                            <img src="https://picsum.photos/300/200?2" alt="CSS Grid vs Flexbox">
+                            {% if related_post.image %}
+                                <img src="{{ related_post.image.url }}" alt="{{ related_post.title }}">
+                            {% else %}
+                                <img src="https://picsum.photos/300/200?{{ forloop.counter }}"
+                                     alt="{{ related_post.title }}">
+                            {% endif %}
                         </div>
                         <div class="related-content">
-                            <h4>CSS Grid vs Flexbox</h4>
-                            <p>When to use Grid, when to use Flex, and how to combine them effectively.</p>
-                            <a href="{% url 'blog:post_detail' slug=post.slug %}" class="read-more">Read More</a>
+                            <h4>{{ related_post.title }}</h4>
+                            <p>{{ related_post.summary|truncatewords:20 }}</p>
+                            <a href="{{ related_post.get_absolute_url }}" class="read-more">Read More</a>
                         </div>
                     </article>
-                    <article class="related-post">
-                        <div class="related-image">
-                            <img src="https://picsum.photos/300/200?3" alt="Django Templates 101">
-                        </div>
-                        <div class="related-content">
-                            <h4>Django Templates 101</h4>
-                            <p>A quick primer on building clean, reusable template structures for your app.</p>
-                            <a href="{% url 'blog:post_detail' slug=post.slug %}" class="read-more">Read More</a>
-                        </div>
-                    </article>
-                </div>
-            </section>
-        </article>
-    </main>
+                {% empty %}
+                    <p>There are no related articles.</p>
+                {% endfor %}
+            </div>
+        </section>
+    </article>
+</main>
 
 {% endblock content %}

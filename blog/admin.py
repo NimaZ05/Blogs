@@ -1,6 +1,5 @@
 from django.contrib import admin
 from django.utils.html import format_html
-
 from .models import Post, Category, Tag
 
 
@@ -16,8 +15,8 @@ class CategoryAdmin(admin.ModelAdmin):
     """
     list_display = ('name', 'slug', 'post_count')
     search_fields = ('name',)
-    # Automatically generate slug from name
-    prepopulated_fields = {'slug': ('name',)}
+
+    prepopulated_fields = {'slug': ('name',)}  # Automatically generate slug from name
 
     def post_count(self, obj):
         """Custom column to display the number of posts in this category."""
@@ -35,8 +34,8 @@ class TagAdmin(admin.ModelAdmin):
     """
     list_display = ('name', 'slug')
     search_fields = ('name',)
-    # Automatically generate slug from name
-    prepopulated_fields = {'slug': ('name',)}
+
+    prepopulated_fields = {'slug': ('name',)}  # Automatically generate slug from name
 
 
 # --- 3. Post Admin Configuration ---
@@ -46,7 +45,6 @@ class PostAdmin(admin.ModelAdmin):
     """
     Admin configuration for the Post model (the main model).
     """
-    readonly_fields = ('slug',)
 
     # Display columns in the change list view
     list_display = ('title', 'author', 'status_colored', 'category', 'is_featured', 'published_date', 'created_at')
@@ -60,6 +58,7 @@ class PostAdmin(admin.ModelAdmin):
     # Automatically generate slug from title (if slug is editable, which it should be)
     # Since the model sets slug editable=False, we will rely on the model's save method for generation.
     # To show it in the admin and ensure it's generated, we keep it in the fieldsets below.
+    readonly_fields = ('slug',)
 
     # Adds a date-based drill-down navigation at the top of the change list
     date_hierarchy = 'published_date'
@@ -74,16 +73,18 @@ class PostAdmin(admin.ModelAdmin):
 
     # Organize fields into logical groups in the detail view
     fieldsets = (
-        (None, {
+        ('Post Information', {
             'fields': ('title', 'summary', 'content'),
+            'classes': ('collapse',),
         }),
         ('Publication Details', {
             'fields': ('author', 'status', 'published_date', 'is_featured', 'image'),
-            'classes': ('collapse',),  # Make this section collapsible
+            'classes': ('collapse',),
         }),
         ('Categorization', {
             'fields': ('category', 'tags'),
             'description': 'Assign the primary category and optional tags.',
+            'classes': ('collapse',),
         }),
         ('SEO & URL Management', {
             # Slug is required, but since we auto-generate it in the model,

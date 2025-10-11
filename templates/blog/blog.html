@@ -1,19 +1,32 @@
 {% extends 'base.html' %}
-{% block title %}
-    Blogs
-{% endblock title %}
+
 {% block content %}
     <main class="content">
-        <h1 class="page-title">Latest Posts</h1>
+        <h1 class="page-title">{{ title|default:"Latest Posts" }}</h1>
 
         <div class="blog-topbar">
-            <form class="search-bar" action="#">
+            <form class="search-bar" action="{% url 'blog:search' %}" method="GET">
                 <label>
-                    <input type="text" placeholder="Search posts...">
+                    <input
+                            type="text"
+                            placeholder="Search posts..."
+                            name="search"
+                            value="{{ search_query|default_if_none:'' }}"
+                    >
                 </label>
                 <button type="submit">Search</button>
             </form>
         </div>
+
+        {% if search_query %}
+            <h2>Results for: "{{ search_query }}"</h2>
+        {% elif filter_type == 'category' %}
+            <h2>Filtering by Category: {{ posts.0.category.name|default:filter_slug }}</h2>
+        {% elif filter_type == 'tag' %}
+            <h2>Filtering by Tag: {{ posts.0.tags.first.name|default:filter_slug }}</h2>
+        {% elif filter_type == 'author' %}
+            <h2>Filtering by Author: {{ filter_slug }}</h2>
+        {% endif %}
 
         <div class="blog-layout">
             <section class="blog-main">
@@ -22,50 +35,95 @@
                         <article class="post-row">
                             <aside class="post-aside">
                                 {% if post.category %}
-                                    <span class="meta-chip category">{{ post.category.name }}</span>
+                                    <a href="{% url 'blog:category' cat_slug=post.category.slug %}">
+                                        <span class="meta-chip category">{{ post.category.name }}</span>
+                                    </a>
                                 {% else %}
                                     <span class="meta-chip category">Uncategorized</span>
                                 {% endif %}
-                                <span class="meta">{{ post.author }}</span>
+                                <a href="{% url 'blog:author' author_username=post.author.username %}">
+                                    <span class="meta">{{ post.author }}</span>
+                                </a>
                                 <span class="meta">{{ post.published_date|date:"Y-m-d" }}</span>
                                 <span class="meta">{{ post.counted_view }} Views</span>
                                 <span class="meta">2 Comments</span>
                             </aside>
                             <div class="post-card wide">
                                 <div class="post-image">
-                                    <img src="{{ post.image.url }}" alt="Post cover">
+                                    {% if post.image %}
+                                        <img src="{{ post.image.url }}" alt="Post cover">
+                                    {% else %}
+                                        <img src="https://via.placeholder.com/600x400" alt="Post cover"></img>
+                                    {% endif %}
                                 </div>
                                 <div class="post-content post-content-row">
                                     <div class="post-text">
                                         <h2>{{ post.title }}</h2>
                                         <div class="post-meta-row">
                                             {% for tag in post.tags.all %}
-                                                <span class="meta-chip tag">#{{ tag.name }}</span>
+                                                <a href="{% url 'blog:tag' tag_slug=tag.slug %}">
+                                                    <span class="meta-chip tag">#{{ tag.name }}</span>
+                                                </a>
                                             {% endfor %}
                                             <span class="meta">by {{ post.author }}</span>
                                             <span class="meta">{{ post.published_date|date:"Y-m-d" }}</span>
                                         </div>
-                                        <p class="post-excerpt">{{ post.content }}
+                                        <p class="post-excerpt">{{ post.content|truncatechars:200 }}
                                             lorem kasdaksd kad klajkldasjdklzxj lkajdlka jdklaj ladlka jdlk jaklsdj
-                                            akljd askld <lk></lk>j dklajdakl jaslkjd akljd lkajd klajd lkajdlkaj daklj dalkjds
+                                            akljd askld j dklajdakl jaslkjd akljd lkajd klajd lkajdlkaj daklj dalkjds
                                             klajs kljdalk j</p>
                                     </div>
                                     <div class="post-cta">
-                                        <a href="{% url 'blog:post_detail' slug=post.slug %}"
-                                           class="read-more fixed">{{ post.title }}</a>
+                                        <a href="{{ post.get_absolute_url }}"
+                                           class="read-more fixed">read more</a>
                                     </div>
                                 </div>
                             </div>
                         </article>
+                    {% empty %}
+                        <p>No posts found matching your criteria.</p>
                     {% endfor %}
                 </div>
 
                 <nav class="pagination">
-                    <a class="page-btn" href="#">Prev</a>
-                    <a class="page-btn active" href="#">1</a>
-                    <a class="page-btn" href="#">2</a>
-                    <a class="page-btn" href="#">3</a>
-                    <a class="page-btn" href="#">Next</a>
+                    {% if posts.has_other_pages %}
+                        {# This sets the base URL for the pagination links, preserving search or filter #}
+                        {% url 'blog:search' as pagination_url %}
+                        {% if filter_type == 'category' %}
+                            {% url 'blog:category' cat_slug=filter_slug as pagination_url %}
+                        {% elif filter_type == 'tag' %}
+                            {% url 'blog:tag' tag_slug=filter_slug as pagination_url %}
+                        {% elif filter_type == 'author' %}
+                            {% url 'blog:author' author_username=filter_slug as pagination_url %}
+                        {% else %}
+                            {% url 'blog:blog_home' as pagination_url %}
+                        {% endif %}
+
+                        {# Get existing query string (for search) #}
+                        {% if search_query %}
+                            {% with '&search='|add:search_query as search_param %}
+                                {% with pagination_url|add:search_param as pagination_url %}{% endwith %}
+                            {% endwith %}
+                        {% endif %}
+
+
+                        {# Helper to combine base URL and page number #}
+                        {% with pagination_url|add:'?page=' as base_url %}
+
+                            {% if posts.has_previous %}
+                                <a class="page-btn" href="{{ base_url }}{{ posts.previous_page_number }}">Prev</a>
+                            {% endif %}
+
+                            {% for page_num in posts.paginator.page_range %}
+                                <a class="page-btn {% if posts.number == page_num %}active{% endif %}"
+                                    href="{{ base_url }}{{ page_num }}">{{ page_num }}</a>
+                            {% endfor %}
+
+                            {% if posts.has_next %}
+                                <a class="page-btn" href="{{ base_url }}{{ posts.next_page_number }}">Next</a>
+                            {% endif %}
+                        {% endwith %}
+                    {% endif %}
                 </nav>
             </section>
 
@@ -73,35 +131,19 @@
                 <div class="page-card">
                     <h3 class="sidebar-title">Categories</h3>
                     <ul class="category-list">
-                        <li><a href="#" class="category-link">EA</a></li>
-                        <li><a href="#" class="category-link">UI/UX</a></li>
-                        <li><a href="#" class="category-link">Frontend</a></li>
-                        <li><a href="#" class="category-link">Backend</a></li>
-                        <li><a href="#" class="category-link">Performance</a></li>
+                        {% for cat in categories %}
+                            <li><a href="{% url 'blog:category' cat_slug=cat.slug %}" class="category-link">{{ cat.name }}</a></li>
+                        {% endfor %}
+
                     </ul>
                 </div>
 
                 <div class="page-card">
                     <h3 class="sidebar-title">Tags</h3>
                     <div class="tags-container">
-                        <a href="#" class="tag-link">#movie</a>
-                        <a href="#" class="tag-link">#css</a>
-                        <a href="#" class="tag-link">#grid</a>
-                        <a href="#" class="tag-link">#javascript</a>
-                        <a href="#" class="tag-link">#react</a>
-                        <a href="#" class="tag-link">#vue</a>
-                        <a href="#" class="tag-link">#nodejs</a>
-                        <a href="#" class="tag-link">#python</a>
-                        <a href="#" class="tag-link">#design</a>
-                        <a href="#" class="tag-link">#tutorial</a>
-                        <a href="#" class="tag-link">#webdev</a>
-                        <a href="#" class="tag-link">#programming</a>
-                        <a href="#" class="tag-link">#frontend</a>
-                        <a href="#" class="tag-link">#backend</a>
-                        <a href="#" class="tag-link">#database</a>
-                        <a href="#" class="tag-link">#api</a>
-                        <a href="#" class="tag-link">#mobile</a>
-                        <a href="#" class="tag-link">#responsive</a>
+                        {% for tag in tags %}
+                            <a href="{% url 'blog:tag' tag_slug=tag.slug %}" class="tag-link">#{{ tag.name }}</a>
+                        {% endfor %}
                     </div>
                 </div>
 
@@ -111,7 +153,8 @@
                         <p class="newsletter-text">Stay updated with our latest posts and exclusive content.</p>
                         <form class="newsletter-form" action="#">
                             <label>
-                                <input type="email" placeholder="Enter your email" class="newsletter-input">
+                                <input type="email" name="email" placeholder="Enter your email"
+                                       class="newsletter-input">
                             </label>
                             <button type="submit" class="newsletter-btn">Subscribe</button>
                         </form>
@@ -121,4 +164,3 @@
         </div>
     </main>
 {% endblock content %}
-
