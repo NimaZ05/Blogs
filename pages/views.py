@@ -5,9 +5,9 @@ from django.views.generic import TemplateView
 
 
 def home_view(request):
-    latest_posts = Post.objects.order_by('-published_date')[:3]
+    latest_posts = Post.objects.filter(is_featured=True).order_by('-created_at')
     context = {
-        'latest_posts':latest_posts,
+        'latest_posts': latest_posts,
         'title': 'Home',
     }
     return render(request, 'pages/index.html', context)

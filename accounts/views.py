@@ -35,3 +35,24 @@ def profile_page(request):
         'title': 'Profile'
     }
     return render(request, 'accounts/profile.html', context)
+
+
+def forgot_password_view(request):
+    context = {
+        'title': 'Forgot Password'
+    }
+    return render(request, 'accounts/password_reset.html', context)
+
+
+def change_password_view(request):
+    context = {
+        'title': 'Change Password'
+    }
+    return render(request, 'accounts/password_change.html', context)
+
+
+def delete_account_view(request):
+    context = {
+        'title': 'Delete Account'
+    }
+    return render(request, 'accounts/delete_account.html', context)
