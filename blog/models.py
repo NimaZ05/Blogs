@@ -129,7 +129,7 @@ class Post(models.Model):
         """
         Returns the canonical URL for a Post object. Requires URL configuration.
         """
-        return reverse('post_detail', kwargs={'slug': self.slug})
+        return reverse('blog:post_detail', kwargs={'slug': self.slug})
 
     @property
     def is_published(self):
