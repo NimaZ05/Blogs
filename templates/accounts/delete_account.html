@@ -1,8 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}
-    Delete account
-{% endblock title %}
+
 {% block content %}
 
     <main class="content">
@@ -46,7 +44,7 @@
 
                         <div class="form-actions">
                             <button type="submit" class="auth-button danger">Delete My Account</button>
-                            <a href="profile.html" class="auth-button secondary">Cancel</a>
+                            <a href="{% url 'accounts:profile' %}" class="auth-button secondary">Cancel</a>
                         </div>
                     </form>
                 </div>

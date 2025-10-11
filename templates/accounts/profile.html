@@ -1,8 +1,5 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}
-    Password Reset
-{% endblock title %}
 {% block content %}
 
     <main class="content">
@@ -50,8 +47,8 @@
                     </ul>
 
                     <div class="profile-actions">
-                        <a href="password_change.html" class="action-btn">Change Password</a>
-                        <a href="delete_account.html" class="action-btn danger">Delete Account</a>
+                        <a href="{% url 'accounts:change_password' %}" class="action-btn">Change Password</a>
+                        <a href="{% url 'accounts:delete_account' %}" class="action-btn danger">Delete Account</a>
                     </div>
                 </div>
             </div>

@@ -1,5 +1,4 @@
 {% extends "base.html" %} {% load static %}
-
 {% block content %}
     <main class="content">
         <div class="posts-container">
@@ -13,7 +12,7 @@
                         <p class="post-meta">Posted by {{ post.author }} on {{ post.published_date|date:'M, d Y' }}</p>
                         <p class="post-excerpt">{{ post.summary }}</p>
                         <div class="post-footer">
-                            <a href="{% url 'blog:post_detail' slug=post.slug %}" class="read-more">Read More</a>
+                            <a href="{{ post.get_absolute_url }}" class="read-more">Read More</a>
                         </div>
                     </div>
                 </article>
