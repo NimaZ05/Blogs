@@ -53,7 +53,7 @@
                                     {% if post.image %}
                                         <img src="{{ post.image.url }}" alt="Post cover">
                                     {% else %}
-                                        <img src="https://via.placeholder.com/600x400" alt="Post cover"></img>
+                                        <img src="https://via.placeholder.com/600x400" alt="Post cover">
                                     {% endif %}
                                 </div>
                                 <div class="post-content post-content-row">
@@ -116,7 +116,7 @@
 
                             {% for page_num in posts.paginator.page_range %}
                                 <a class="page-btn {% if posts.number == page_num %}active{% endif %}"
-                                    href="{{ base_url }}{{ page_num }}">{{ page_num }}</a>
+                                   href="{{ base_url }}{{ page_num }}">{{ page_num }}</a>
                             {% endfor %}
 
                             {% if posts.has_next %}
@@ -132,7 +132,8 @@
                     <h3 class="sidebar-title">Categories</h3>
                     <ul class="category-list">
                         {% for cat in categories %}
-                            <li><a href="{% url 'blog:category' cat_slug=cat.slug %}" class="category-link">{{ cat.name }}</a></li>
+                            <li><a href="{% url 'blog:category' cat_slug=cat.slug %}"
+                                   class="category-link">{{ cat.name }}</a></li>
                         {% endfor %}
 
                     </ul>
