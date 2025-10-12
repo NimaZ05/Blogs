@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-
 {% block content %}
     <main class="content">
         <h1 class="page-title">{{ title|default:"Latest Posts" }}</h1>
@@ -32,7 +31,7 @@
             <section class="blog-main">
                 <div class="posts-stack">
                     {% for post in posts %}
-                        <article class="post-row">
+                        <article class="post-row animate-on-scroll">
                             <aside class="post-aside">
                                 {% if post.category %}
                                     <a href="{% url 'blog:category' cat_slug=post.category.slug %}">
@@ -51,9 +50,9 @@
                             <div class="post-card wide">
                                 <div class="post-image">
                                     {% if post.image %}
-                                        <img src="{{ post.image.url }}" alt="Post cover">
+                                        <img src="{{ post.image.url }}" alt="Post cover" loading="lazy">
                                     {% else %}
-                                        <img src="https://via.placeholder.com/600x400" alt="Post cover">
+                                        <img src="https://via.placeholder.com/600x400" alt="Post cover" loading="lazy">
                                     {% endif %}
                                 </div>
                                 <div class="post-content post-content-row">

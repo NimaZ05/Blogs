@@ -17,3 +17,6 @@
 
 /* Utility classes - Helpers, responsive design, and utility functions */
 @import 'utilities.css';
+
+/* Table of Contents styles */
+@import 'toc.css';

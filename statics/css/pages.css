@@ -3,6 +3,7 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+    min-height: 450px;
 }
 
 .post-image {
@@ -607,6 +608,226 @@
     }
 }
 
+/* Advanced Animations and Scroll Effects */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease-out;
+}
+
+.animate-on-scroll.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.fade-in {
+    animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.slide-up {
+    animation: slideUp 0.6s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.scale-in {
+    animation: scaleIn 0.5s ease-out;
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Enhanced Post Card Animations */
+.post-card {
+    transition: all 0.3s ease;
+    will-change: transform;
+}
+
+.post-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 12px 30px var(--shadow-heavy);
+}
+
+.post-card .post-image {
+    overflow: hidden;
+}
+
+.post-card .post-image img {
+    transition: transform 0.4s ease;
+}
+
+.post-card:hover .post-image img {
+    transform: scale(1.1);
+}
+
+/* Staggered Animation for Post Lists */
+.post-row:nth-child(1) { animation-delay: 0.1s; }
+.post-row:nth-child(2) { animation-delay: 0.2s; }
+.post-row:nth-child(3) { animation-delay: 0.3s; }
+.post-row:nth-child(4) { animation-delay: 0.4s; }
+.post-row:nth-child(5) { animation-delay: 0.5s; }
+
+/* Enhanced Button Interactions */
+.auth-button, .read-more, .action-btn {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.auth-button::before, .read-more::before, .action-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.auth-button:hover::before, .read-more:hover::before, .action-btn:hover::before {
+    left: 100%;
+}
+
+/* Loading States for Forms */
+.form-loading {
+    position: relative;
+    pointer-events: none;
+}
+
+.form-loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Enhanced Search Bar */
+.search-bar {
+    position: relative;
+}
+
+.search-suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+    display: none;
+}
+
+.search-suggestion {
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    border-bottom: 1px solid var(--border-color);
+    transition: background-color 0.2s ease;
+}
+
+.search-suggestion:hover {
+    background: var(--bg-hover);
+}
+
+.search-suggestion:last-child {
+    border-bottom: none;
+}
+
+/* Enhanced Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 2rem 0;
+}
+
+.page-btn {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.page-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: var(--accent-primary);
+    transition: width 0.3s ease;
+    z-index: -1;
+}
+
+.page-btn:hover::before {
+    width: 100%;
+}
+
+.page-btn:hover {
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+/* Enhanced Meta Chips */
+.meta-chip {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.meta-chip::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+.meta-chip:hover::before {
+    left: 100%;
+}
+
+.meta-chip:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--shadow-accent);
+}
+
 /* Responsive adjustments for new pages */
 @media (max-width: 768px) {
     .action-buttons {
@@ -619,5 +840,13 @@
     
     .info-box {
         padding: 1rem;
+    }
+        
+    .post-card:hover {
+        transform: translateY(-4px) scale(1.01);
+    }
+    
+    .search-suggestions {
+        max-height: 150px;
     }
 }

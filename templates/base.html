@@ -7,6 +7,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% if title %}{{ title }} | BlogSite{% else %}BlogSite{% endif %}</title>
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <!-- Enhanced meta tags for SEO -->
+    <meta name="description" content="{% block meta_description %}Modern blog with clean design and great user experience{% endblock %}">
+    <meta name="keywords" content="{% block meta_keywords %}blog, web design, development, technology{% endblock %}">
+    <meta property="og:title" content="{% block og_title %}{{ title|default:"BlogSite" }}{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}{{ meta_description|default:"Modern blog with clean design" }}{% endblock %}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{% block twitter_title %}{{ title|default:"BlogSite" }}{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}{{ meta_description|default:"Modern blog with clean design" }}{% endblock %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <link rel="canonical" href="{{ request.build_absolute_uri }}">
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="{% static 'manifest.json' %}">
+    <meta name="theme-color" content="#4a90e2">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="BlogSite">
+    <link rel="apple-touch-icon" href="{% static 'img/icon-192.png' %}">
 </head>
 <body>
 <header class="main-header">
@@ -72,6 +91,21 @@
 </footer>
 
 <script src="{% static 'js/theme-toggle.js' %}"></script>
+<script src="{% static 'js/enhanced-features.js' %}"></script>
+<script>
+    // Register Service Worker for PWA
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('{% static "js/sw.js" %}')
+                .then((registration) => {
+                    console.log('SW registered: ', registration);
+                })
+                .catch((registrationError) => {
+                    console.log('SW registration failed: ', registrationError);
+                });
+        });
+    }
+</script>
 <script>
     // Header scroll effect
     window.addEventListener('scroll', function () {

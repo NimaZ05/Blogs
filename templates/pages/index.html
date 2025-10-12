@@ -3,9 +3,9 @@
     <main class="content">
         <div class="posts-container">
             {% for post in latest_posts %}
-                <article class="post-card">
+                <article class="post-card animate-on-scroll">
                     <div class="post-image">
-                        <img src="{{ post.image.url }}" alt="{{ post.title }}">
+                        <img src="{{ post.image.url }}" alt="{{ post.title }}" loading="lazy">
                     </div>
                     <div class="post-content">
                         <h2>{{ post.title }}</h2>

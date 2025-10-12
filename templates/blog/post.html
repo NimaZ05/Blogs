@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
+
 <main class="content">
     <article class="post-detail">
         <!-- Post Header -->
@@ -28,7 +29,7 @@
 
         <!-- Featured Image -->
         <div class="post-featured-image">
-            <img src="{{ post.image.url }}" alt="{{ post.title }}"> # {{ post.author.profile.image.url }}
+            <img src="{{ post.image.url }}" alt="{{ post.title }}" loading="lazy">
         </div>
 
         <!-- Post Content -->
@@ -36,7 +37,14 @@
             <p class="post-intro">
                 {{ post.content|safe }}
             </p>
+        </div>
 
+        <!-- Social Sharing -->
+        <div class="social-share">
+            <button class="share-btn twitter" data-platform="twitter">Twitter</button>
+            <button class="share-btn linkedin" data-platform="linkedin">LinkedIn</button>
+            <button class="share-btn facebook" data-platform="facebook">Facebook</button>
+            <button class="share-btn copy" data-platform="copy">Copy Link</button>
         </div>
         <!-- Author Section -->
         <div class="post-author">

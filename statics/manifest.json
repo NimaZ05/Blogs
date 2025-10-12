@@ -1,0 +1,27 @@
+{
+    "name": "Web Design Blog",
+    "short_name": "BlogSite",
+    "description": "Modern blog with clean design and great user experience",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#1a1a1a",
+    "theme_color": "#4a90e2",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "/static/img/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/static/img/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "categories": ["blog", "news", "technology"],
+    "lang": "en",
+    "dir": "ltr"
+}
