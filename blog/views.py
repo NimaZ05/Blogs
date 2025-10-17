@@ -46,7 +46,8 @@ def blog_home(request):
 
 def post_view(request, slug):
     post = get_object_or_404(
-        Post.objects.select_related('category', 'author').prefetch_related('tags'),
+        Post.objects.select_related(
+            'category', 'author').prefetch_related('tags'),
         slug=slug,
         status="published"
     )
@@ -70,7 +71,8 @@ def blog_search(request):
 
     if search_query:
         posts = posts.filter(
-            Q(title__icontains=search_query) | Q(content__icontains=search_query)
+            Q(title__icontains=search_query) | Q(
+                content__icontains=search_query)
         )
 
     # Apply ordering and pagination
@@ -148,3 +150,8 @@ def blog_author(request, author_username):
         'title': f'Author: {author_username}',
     })
     return render(request, 'blog/blog.html', context)
+
+
+def add_post(request):
+    context = get_common_context()
+    return render(request, 'blog/add_post.html', context)

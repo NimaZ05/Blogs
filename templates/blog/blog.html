@@ -1,8 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
     <main class="content">
-        <h1 class="page-title">{{ title|default:"Latest Posts" }}</h1>
-
+        <h1>Latest Posts</h1>
         <div class="blog-topbar">
             <form class="search-bar" action="{% url 'blog:search' %}" method="GET">
                 <label>
@@ -48,16 +47,20 @@
                                 <span class="meta">2 Comments</span>
                             </aside>
                             <div class="post-card wide">
-                                <div class="post-image">
+                                <div class="post-image skeleton-container is-loading">
+                                    <div class="skeleton skeleton-image"></div>
                                     {% if post.image %}
-                                        <img src="{{ post.image.url }}" alt="Post cover" loading="lazy">
+                                        <img data-src="{{ post.image.url }}" alt="Post cover" loading="lazy" class="lazy">
                                     {% else %}
-                                        <img src="https://via.placeholder.com/600x400" alt="Post cover" loading="lazy">
+                                        <img data-src="https://via.placeholder.com/600x400" alt="Post cover" loading="lazy" class="lazy">
                                     {% endif %}
                                 </div>
                                 <div class="post-content post-content-row">
                                     <div class="post-text">
-                                        <h2>{{ post.title }}</h2>
+                                        <div class="skeleton-container is-loading">
+                                            <div class="skeleton skeleton-text medium"></div>
+                                            <h2>{{ post.title }}</h2>
+                                        </div>
                                         <div class="post-meta-row">
                                             {% for tag in post.tags.all %}
                                                 <a href="{% url 'blog:tag' tag_slug=tag.slug %}">
@@ -67,10 +70,15 @@
                                             <span class="meta">by {{ post.author }}</span>
                                             <span class="meta">{{ post.published_date|date:"Y-m-d" }}</span>
                                         </div>
-                                        <p class="post-excerpt">{{ post.content|truncatechars:200 }}
+                                        <div class="skeleton-container is-loading">
+                                            <div class="skeleton skeleton-text"></div>
+                                            <div class="skeleton skeleton-text medium"></div>
+                                            <div class="skeleton skeleton-text short"></div>
+                                            <p class="post-excerpt">{{ post.content|truncatechars:200 }}
                                             lorem kasdaksd kad klajkldasjdklzxj lkajdlka jdklaj ladlka jdlk jaklsdj
                                             akljd askld j dklajdakl jaslkjd akljd lkajd klajd lkajdlkaj daklj dalkjds
                                             klajs kljdalk j</p>
+                                        </div>
                                     </div>
                                     <div class="post-cta">
                                         <a href="{{ post.get_absolute_url }}"

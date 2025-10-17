@@ -28,8 +28,9 @@
         </header>
 
         <!-- Featured Image -->
-        <div class="post-featured-image">
-            <img src="{{ post.image.url }}" alt="{{ post.title }}" loading="lazy">
+        <div class="post-featured-image skeleton-container is-loading">
+            <div class="skeleton skeleton-image"></div>
+            <img data-src="{{ post.image.url }}" alt="{{ post.title }}" loading="lazy" class="lazy">
         </div>
 
         <!-- Post Content -->
@@ -72,12 +73,12 @@
             <div class="related-grid">
                 {% for related_post in related_posts %}
                     <article class="related-post">
-                        <div class="related-image">
+                        <div class="related-image skeleton-container is-loading">
+                            <div class="skeleton skeleton-image"></div>
                             {% if related_post.image %}
-                                <img src="{{ related_post.image.url }}" alt="{{ related_post.title }}">
+                                <img data-src="{{ related_post.image.url }}" alt="{{ related_post.title }}" class="lazy">
                             {% else %}
-                                <img src="https://picsum.photos/300/200?{{ forloop.counter }}"
-                                     alt="{{ related_post.title }}">
+                                <img data-src="https://picsum.photos/300/200?{{ forloop.counter }}" alt="{{ related_post.title }}" class="lazy">
                             {% endif %}
                         </div>
                         <div class="related-content">

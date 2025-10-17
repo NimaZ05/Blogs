@@ -10,7 +10,8 @@ class BlogEnhancements {
         this.setupToastNotifications();
         this.setupEnhancedSearch();
         this.setupSocialSharing();
-        this.setupLazyLoading();
+        this.setupLazyLoading();   
+        this.setupSkeletonHandling();
         this.setupTouchGestures();
         this.setupFormEnhancements();
         this.setupAccessibility();
@@ -296,6 +297,35 @@ class BlogEnhancements {
                 imageObserver.observe(img);
             });
         }
+    }
+
+    // Skeleton removal when images/text load
+    setupSkeletonHandling() {
+        const containers = document.querySelectorAll('.skeleton-container');
+
+        containers.forEach(container => {
+            const img = container.querySelector('img');
+            const skeletons = container.querySelectorAll('.skeleton');
+
+            const cleanup = () => {
+                container.classList.remove('is-loading');
+                skeletons.forEach(s => s.classList.add('skeleton-hidden'));
+                if (img) img.style.opacity = '1';
+            };
+
+            if (img) {
+                // If image is already cached/complete
+                if (img.complete && img.naturalWidth > 0) {
+                    cleanup();
+                } else {
+                    img.addEventListener('load', cleanup, { once: true });
+                    img.addEventListener('error', cleanup, { once: true });
+                }
+            } else {
+                // No image, remove skeletons immediately
+                cleanup();
+            }
+        });
     }
 
     // Touch gestures for mobile

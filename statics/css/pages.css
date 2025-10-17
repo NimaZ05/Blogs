@@ -841,7 +841,7 @@
     .info-box {
         padding: 1rem;
     }
-        
+    
     .post-card:hover {
         transform: translateY(-4px) scale(1.01);
     }
