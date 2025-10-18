@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'blog.apps.BlogConfig',
 
     # libraries
+    'phonenumber_field',
 ]
 
 MIDDLEWARE = [

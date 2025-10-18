@@ -1,34 +1,47 @@
 {% extends 'base.html' %} {% load static %}
 {% block content %}
-
     <main class="content">
         <section class="contact-card page-card">
             <h1 class="contact-title">Contact Us</h1>
-            <form class="contact-form clean-form">
-
+            <form class="contact-form clean-form" action="{% url 'pages:contact' %}" method="POST">
+                {% csrf_token %}
                 <div class="form-group full">
-                    <input type="text" id="name" name="name" placeholder="Full Name *" required>
+                    {{ form.name.label_tag }}
+                    {{ form.name }}
+                    {% if form.name.errors %}
+                        <div class="error">{{ form.name.errors }}</div>{% endif %}
                 </div>
-
                 <div class="form-row">
                     <div class="form-group">
-                        <input type="email" id="email" name="email" placeholder="Email *" required>
+                        {{ form.email.label_tag }}
+                        {{ form.email }}
+                        {% if form.email.errors %}
+                            <div class="error">{{ form.email.errors }}</div>{% endif %}
                     </div>
                     <div class="form-group">
-                        <input type="tel" id="phone" name="phone" placeholder="Phone">
+                        {{ form.phone.label_tag }}
+                        {{ form.phone }}
+                        <small class="help-text">{{ form.phone.help_text }}</small>
+                        {% if form.phone.errors %}
+                            <div class="error">{{ form.phone.errors }}</div>{% endif %}
                     </div>
                 </div>
-
                 <div class="form-group full">
-                    <textarea id="message" name="message" rows="6" placeholder="Your message here..."
-                              required></textarea>
+                    {{ form.subject.label_tag }}
+                    {{ form.subject }}
+                    {% if form.subject.errors %}
+                        <div class="error">{{ form.subject.errors }}</div>{% endif %}
                 </div>
-
+                <div class="form-group full">
+                    {{ form.message.label_tag }}
+                    {{ form.message }}
+                    {% if form.message.errors %}
+                        <div class="error">{{ form.message.errors }}</div>{% endif %}
+                </div>
                 <div class="form-actions full">
                     <button class="auth-button" type="submit">Submit</button>
                 </div>
             </form>
         </section>
     </main>
-
 {% endblock content %}
