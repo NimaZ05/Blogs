@@ -14,7 +14,14 @@
   </component>
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/.idea/dataSources" />
       <excludeFolder url="file://$MODULE_DIR$/.venv" />
+      <excludeFolder url="file://$MODULE_DIR$/accounts/__pycache__" />
+      <excludeFolder url="file://$MODULE_DIR$/blog/__pycache__" />
+      <excludeFolder url="file://$MODULE_DIR$/blog/migrations/__pycache__" />
+      <excludeFolder url="file://$MODULE_DIR$/config/__pycache__" />
+      <excludeFolder url="file://$MODULE_DIR$/pages/__pycache__" />
+      <excludeFolder url="file://$MODULE_DIR$/pages/migrations/__pycache__" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.12 (Blogs)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
