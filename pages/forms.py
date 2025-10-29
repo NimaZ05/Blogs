@@ -2,6 +2,7 @@ from django import forms
 from .models import Contact, NewsletterSubscription
 from django.forms.widgets import TextInput, EmailInput, Textarea
 
+
 class ContactForm(forms.ModelForm):
     class Meta:
         model = Contact

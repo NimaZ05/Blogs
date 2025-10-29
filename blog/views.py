@@ -1,10 +1,11 @@
-from django.shortcuts import render, get_object_or_404
+from django.contrib import messages
+from django.shortcuts import render, get_object_or_404, redirect
+from .forms import PostForm
 from .models import Post, Category, Tag
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.db.models import Q
+from django.db.models import Q, F
 
 
-# --- Helper function for pagination, used by all list views ---
 def paginate_posts(request, post_list, per_page=3):
     """Handles common pagination logic."""
     paginator = Paginator(post_list, per_page)
@@ -18,7 +19,6 @@ def paginate_posts(request, post_list, per_page=3):
     return posts
 
 
-# --- Common context function ---
 def get_common_context():
     """Returns categories and tags for the sidebar."""
     return {
@@ -33,7 +33,6 @@ def blog_home(request):
         .prefetch_related('tags') \
         .order_by('-published_date')
 
-    # Apply pagination
     posts = paginate_posts(request, posts)
 
     context = get_common_context()
@@ -51,6 +50,12 @@ def post_view(request, slug):
         slug=slug,
         status="published"
     )
+
+    session_key = f'viewed_post_{post.pk}'
+    if not request.session.get(session_key, False):
+        Post.objects.filter(pk=post.pk).update(counted_view=F('counted_view') + 1)
+        request.session[session_key] = True
+        post.refresh_from_db()
 
     related_posts = Post.objects.filter(
         category=post.category,
@@ -75,7 +80,6 @@ def blog_search(request):
                 content__icontains=search_query)
         )
 
-    # Apply ordering and pagination
     posts = posts.order_by('-published_date')
     posts = paginate_posts(request, posts)
 
@@ -108,8 +112,6 @@ def blog_category(request, cat_slug):
     return render(request, 'blog/blog.html', context)
 
 
-# --- New Views for Tag and Author filtering for cleaner URL structure ---
-
 def blog_tag(request, tag_slug):
     tag = get_object_or_404(Tag, slug=tag_slug)
     posts = Post.objects.filter(
@@ -130,15 +132,10 @@ def blog_tag(request, tag_slug):
 
 
 def blog_author(request, author_username):
-    # Assuming your Post model's author is linked to Django's default User model
-    # and we filter by username directly.
     posts = Post.objects.filter(
         author__username=author_username,
         status="published"
     ).select_related('category', 'author').prefetch_related('tags').order_by('-published_date')
-
-    # If no posts are found, we might want to check if the author exists, but for brevity,
-    # we'll just show an empty page if the username is valid but has no published posts.
 
     posts = paginate_posts(request, posts)
 
@@ -153,5 +150,22 @@ def blog_author(request, author_username):
 
 
 def add_post(request):
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            new_post = form.save(commit=False)
+            new_post.author = request.user
+            new_post.save()
+            form.save_m2m()
+            messages.success(request, f"Post '{new_post.title}' successfully created!")
+            return redirect('blog:post_detail', slug=new_post.slug)
+        else:
+            messages.error(request, "There was an error in your submission. Please check the fields.")
+    else:
+        form = PostForm()
     context = get_common_context()
+    context.update({
+        'form': form,
+        'title': 'add post',
+    })
     return render(request, 'blog/add_post.html', context)

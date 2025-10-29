@@ -1,56 +1,54 @@
 /* CSS Variables for Light/Dark Mode */
 :root {
     /* Dark Mode (Default) */
-    --bg-primary: #1a1a1a;
-    --bg-secondary: #252525;
-    --bg-tertiary: #2a2a2a;
-    --bg-card: #252525;
-    --bg-input: #2b2b2b;
-    --bg-hover: #3a3a3a;
-    
-    --text-primary: #fff;
-    --text-secondary: #d3d3d3;
-    --text-muted: #9aa3af;
-    --text-placeholder: #aab2bd;
-    
-    --border-color: #3a3a3a;
-    --border-focus: #4a90e2;
-    
-    --accent-primary: #4a90e2;
-    --accent-secondary: #357abd;
-    --accent-hover: #2c5aa0;
-    
-    --shadow-light: rgba(0, 0, 0, 0.1);
-    --shadow-medium: rgba(0, 0, 0, 0.2);
-    --shadow-heavy: rgba(0, 0, 0, 0.3);
-    --shadow-accent: rgba(74, 144, 226, 0.3);
+    --bg-primary: #0e0b09; /* deep espresso black */
+    --bg-secondary: #181310; /* soft dark brown */
+    --bg-tertiary: #201b18; /* slightly lighter layer */
+    --bg-card: #1a1411;
+    --bg-hover: #2a221e;
+    --bg-input: #1a1411;
+
+    --text-primary: #f8f5f2; /* off-white, elegant */
+    --text-secondary: #d7cfc8;
+    --text-muted: #a99b91;
+    --text-placeholder: #7d7068;
+
+    --accent-primary: #76633c; /* gold-champagne */
+    --accent-secondary: #9e8450;
+    --accent-hover: #d5b671;
+
+    --border-color: #3a2f28;
+    --border-focus: #c6a664;
+
+    --shadow-light: rgba(0, 0, 0, 0.2);
+    --shadow-medium: rgba(0, 0, 0, 0.35);
+    --shadow-heavy: rgba(0, 0, 0, 0.5);
+    --shadow-accent: rgba(149, 143, 8, 0.3);
 }
 
 /* Light Mode */
 [data-theme="light"] {
-    --bg-primary: #ffffff;
-    --bg-secondary: #f8f9fa;
-    --bg-tertiary: #e9ecef;
+    --bg-primary: #fbf8f4;
+    --bg-secondary: #f5f1eb;
+    --bg-tertiary: #eae3dc;
     --bg-card: #ffffff;
-    --bg-input: #ffffff;
-    --bg-hover: #f1f3f4;
-    
-    --text-primary: #000000;
-    --text-secondary: #1a1a1a;
-    --text-muted: #2d2d2d;
-    --text-placeholder: #6b7280;
-    
-    --border-color: #d1d5db;
-    --border-focus: #4a90e2;
-    
-    --accent-primary: #4a90e2;
-    --accent-secondary: #357abd;
-    --accent-hover: #2c5aa0;
-    
+    --bg-hover: #f3ece4;
+
+    --text-primary: #221c17;
+    --text-secondary: #40362e;
+    --text-muted: #6c5f55;
+
+    --accent-primary: #b68b3c; /* soft gold */
+    --accent-secondary: #cfac5d;
+    --accent-hover: #a5782b;
+
+    --border-color: #d8cbbd;
+    --border-focus: #b68b3c;
+
     --shadow-light: rgba(0, 0, 0, 0.1);
     --shadow-medium: rgba(0, 0, 0, 0.2);
     --shadow-heavy: rgba(0, 0, 0, 0.3);
-    --shadow-accent: rgba(74, 144, 226, 0.3);
+    --shadow-accent: rgba(149, 143, 8, 0.3);
 }
 
 /* Reset and base styles */

@@ -4,7 +4,6 @@ from django.utils.text import slugify
 from django.urls import reverse
 from django.core.exceptions import ValidationError
 
-# Get the custom User model defined in settings.AUTH_USER_MODEL
 User = get_user_model()
 
 
@@ -108,7 +107,6 @@ class Post(models.Model):
         Also sets the published_date if the status is set to 'published'
         and the published_date is not already set.
         """
-        # Auto-generate slug
         if not self.slug:
             self.slug = slugify(self.title)
             # Ensure slug is unique, appending a counter if necessary
@@ -118,7 +116,6 @@ class Post(models.Model):
                 self.slug = f"{original_slug}-{counter}"
                 counter += 1
 
-        # Handle published_date
         if self.status == 'published' and not self.published_date:
             from django.utils import timezone
             self.published_date = timezone.now()

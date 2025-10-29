@@ -384,6 +384,7 @@
 .search-bar {
     display: flex;
     gap: 0.5rem;
+    margin-bottom: 1rem;
     max-width: 400px;
     width: 100%;
 }
