@@ -14,7 +14,18 @@
                 </label>
                 <button type="submit">Search</button>
             </form>
+
+            {% if user.is_authenticated %}
+                <a href="{% url 'blog:add_post' %}" class="btn-primary add-post-btn">
+                    + Add New Post
+                </a>
+{#            {% else %}#}
+{#                <a href="{% url 'accounts:login' %}" class="btn-primary add-post-btn">#}
+{#                + Add New Post#}
+{#                </a>#}
+            {% endif %}
         </div>
+
 
         {% if search_query %}
             <h2>Results for: "{{ search_query }}"</h2>
@@ -50,9 +61,11 @@
                                 <div class="post-image skeleton-container is-loading">
                                     <div class="skeleton skeleton-image"></div>
                                     {% if post.image %}
-                                        <img data-src="{{ post.image.url }}" alt="Post cover" loading="lazy" class="lazy">
+                                        <img data-src="{{ post.image.url }}" alt="Post cover" loading="lazy"
+                                             class="lazy">
                                     {% else %}
-                                        <img data-src="https://via.placeholder.com/600x400" alt="Post cover" loading="lazy" class="lazy">
+                                        <img data-src="https://via.placeholder.com/600x400" alt="Post cover"
+                                             loading="lazy" class="lazy">
                                     {% endif %}
                                 </div>
                                 <div class="post-content post-content-row">
@@ -74,10 +87,7 @@
                                             <div class="skeleton skeleton-text"></div>
                                             <div class="skeleton skeleton-text medium"></div>
                                             <div class="skeleton skeleton-text short"></div>
-                                            <p class="post-excerpt">{{ post.content|truncatechars:200 }}
-                                            lorem kasdaksd kad klajkldasjdklzxj lkajdlka jdklaj ladlka jdlk jaklsdj
-                                            akljd askld j dklajdakl jaslkjd akljd lkajd klajd lkajdlkaj daklj dalkjds
-                                            klajs kljdalk j</p>
+                                            <p class="post-excerpt">{{ post.content|truncatechars:200 }}</p>
                                         </div>
                                     </div>
                                     <div class="post-cta">
@@ -94,7 +104,6 @@
 
                 <nav class="pagination">
                     {% if posts.has_other_pages %}
-                        {# This sets the base URL for the pagination links, preserving search or filter #}
                         {% url 'blog:search' as pagination_url %}
                         {% if filter_type == 'category' %}
                             {% url 'blog:category' cat_slug=filter_slug as pagination_url %}
@@ -105,8 +114,6 @@
                         {% else %}
                             {% url 'blog:blog_home' as pagination_url %}
                         {% endif %}
-
-                        {# Get existing query string (for search) #}
                         {% if search_query %}
                             {% with '&search='|add:search_query as search_param %}
                                 {% with pagination_url|add:search_param as pagination_url %}{% endwith %}

@@ -21,7 +21,7 @@
     <link rel="canonical" href="{{ request.build_absolute_uri }}">
     <!-- PWA Manifest -->
     <link rel="manifest" href="{% static 'manifest.json' %}">
-    <meta name="theme-color" content="#4a90e2">
+    <meta name="theme-color" content="#0e0b09">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="BlogSite">
@@ -43,10 +43,13 @@
                 <a href="{{ about_url }}" class="{% if request.path == about_url %}active{% endif %}">About</a>
                 {% url 'pages:contact' as contact_url %}
                 <a href="{{ contact_url }}" class="{% if request.path == contact_url %}active{% endif %}">Contact</a>
+                {% if user.is_authenticated%}
                 {% url 'accounts:profile' as profile_url %}
-                <a href="{{ profile_url }}" class="{% if request.path == profile_url %}active{% endif %}">Profile</a>
+                <a href="{{ profile_url }}" class="auth-link-active {% if request.path == profile_url %}active{% endif %}">Profile</a>
+                {% else %}
                 {% url 'accounts:auth' as auth_url %}
                 <a href="{{ auth_url }}" class="auth-link-active {% if request.path == auth_url %}active{% endif %}">Registration</a>
+                {% endif %}
             </div>
 
         </div>
@@ -145,6 +148,6 @@
         }
     });
 </script>
-{% include 'messages.html' %} 
+{% include 'messages.html' %}
 </body>
 </html>

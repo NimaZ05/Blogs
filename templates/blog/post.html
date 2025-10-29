@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
 
-
 <main class="content">
     <article class="post-detail">
         <!-- Post Header -->
@@ -30,7 +29,11 @@
         <!-- Featured Image -->
         <div class="post-featured-image skeleton-container is-loading">
             <div class="skeleton skeleton-image"></div>
-            <img data-src="{{ post.image.url }}" alt="{{ post.title }}" loading="lazy" class="lazy">
+            {% if post.image %}
+                <img data-src="{{ post.image.url }}" alt="{{ post.title }}" loading="lazy" class="lazy"/>
+            {% else %}
+            <img data-src="https://picsum.photos/300/200?{{ forloop.counter }}" alt="{{ post.title }}" class="lazy">
+            {% endif %}
         </div>
 
         <!-- Post Content -->
@@ -40,21 +43,21 @@
             </p>
         </div>
 
-        <!-- Social Sharing -->
-        <div class="social-share">
-            <button class="share-btn twitter" data-platform="twitter">Twitter</button>
-            <button class="share-btn linkedin" data-platform="linkedin">LinkedIn</button>
-            <button class="share-btn facebook" data-platform="facebook">Facebook</button>
-            <button class="share-btn copy" data-platform="copy">Copy Link</button>
-        </div>
+{#        <!-- Social Sharing -->#}
+{#        <div class="social-share">#}
+{#            <button class="share-btn twitter" data-platform="twitter">Twitter</button>#}
+{#            <button class="share-btn linkedin" data-platform="linkedin">LinkedIn</button>#}
+{#            <button class="share-btn facebook" data-platform="facebook">Facebook</button>#}
+{#            <button class="share-btn copy" data-platform="copy">Copy Link</button>#}
+{#        </div>#}
         <!-- Author Section -->
         <div class="post-author">
             <div class="author-avatar">
-                <img src="" alt="{{ post.author }}"/>
+                <img src="{{user.image.url}}" alt="{{ post.author }}"/>
             </div>
             <div class="author-info">
                 <h3 class="author-name"><a
-                        href="#">{{ post.author }}</a>  <!--  'blog:author' author_username=post.author.username -->
+                        href="{% url 'accounts:profile' %}">{{ post.author }}</a>  <!--  'blog:author' author_username=post.author.username -->
                 </h3>
                 <p class="author-bio">UI/UX Designer with 5+ years of experience in creating accessible and
                     beautiful digital experiences. Passionate about inclusive design and user-centered

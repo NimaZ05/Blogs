@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+    <main class="content">
+        <section class="page-card edit-card">
+            <h1 class="page-title">Edit Profile</h1>
+            <p class="page-subtitle">Update your account and profile details below.</p>
+
+            <!-- IMPORTANT: Must include enctype for image uploads -->
+            <form method="POST" enctype="multipart/form-data" class="profile-edit-form">
+                {% csrf_token %}
+
+                <!-- Display Django messages (success/error) -->
+                {% if messages %}
+                    <div class="messages-container">
+                        {% for message in messages %}
+                            <div class="message message-{{ message.tags|default:'info' }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                <!-- ACCOUNT DETAILS FORM (u_form: Username, Email) -->
+                <div class="form-section">
+                    <h3>Account Details</h3>
+                    {{ u_form.as_p }}
+                </div>
+                
+                <!-- PROFILE DETAILS FORM (p_form: Image, Bio, Location, etc.) -->
+                <div class="form-section">
+                    <h3>Profile Information</h3>
+                    
+                    <!-- Renders all fields in the p_form -->
+                    {{ p_form.as_p }}
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="action-btn primary-btn">Save Changes</button>
+                    <a href="{% url 'accounts:profile' %}" class="action-btn secondary-btn">Cancel</a>
+                </div>
+            </form>
+        </section>
+    </main>
+{% endblock %}

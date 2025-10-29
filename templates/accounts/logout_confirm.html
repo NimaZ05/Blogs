@@ -15,7 +15,7 @@
                     </div>
                     <h2>Confirm Logout</h2>
                     <p class="auth-subtitle">Are you sure you want to log out of your account? You'll need to sign in again to access your profile and account features.</p>
-                    
+
                     <div class="info-box">
                         <h4>What happens when you logout?</h4>
                         <ul>
@@ -25,11 +25,14 @@
                             <li>Any unsaved changes will be lost</li>
                         </ul>
                     </div>
-                    
+
                     <div class="action-buttons">
-                        <a href="#" class="auth-button danger" onclick="confirmLogout()">Yes, Logout</a>
-                        <a href="profile.html" class="auth-button secondary">Cancel</a>
-                    </div>
+                        <form method="post" action="{% url 'accounts:logout' %}">
+                            {% csrf_token %}
+                            <button type="submit" class="auth-button danger">Yes, Logout</button>
+                        </form>
+                        <a href="{% url 'accounts:profile' %}" class="auth-button secondary">Cancel</a> 
+                        </div>
                 </div>
             </div>
         </div>

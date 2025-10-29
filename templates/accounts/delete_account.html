@@ -27,7 +27,8 @@
                         </ul>
                     </div>
 
-                    <form class="auth-form" action="#" method="post">
+                    <form class="auth-form" method="post">
+                        {% csrf_token %}
                         <div class="checkbox-group">
                             <label class="checkbox-label">
                                 <input type="checkbox" name="confirm_delete" required>

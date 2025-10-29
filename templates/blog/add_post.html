@@ -1,29 +1,60 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<body>
+
     <main class="content">
         <div class="page-card">
             <h1 class="page-title">Create a New Post</h1>
 
-            <form method="post" action="" class="clean-form" novalidate>
+            <form method="post" action="{% url 'blog:add_post' %}" class="clean-form"
+                  novalidate enctype="multipart/form-data">
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                    <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+                {% endif %}
+
                 <div class="form-group mb-3">
-                    <label for="id_title">Title</label>
-                    <input type="text" id="id_title" name="title" placeholder="Enter post title" required>
+                    <label for="{{ form.title.id_for_label }}">Title</label>
+                    {{ form.title }}
+                    {% for error in form.title.errors %}<small class="text-danger">{{ error }}</small>{% endfor %}
                 </div>
 
                 <div class="form-group mb-3 select-wrapper">
-                    <label for="id_status">Status</label>
-                    <select id="id_status" name="status" class="select-pill" required>
-                        <option value="draft">Draft</option>
-                        <option value="published">Published</option>
-                        <option value="archived">Archived</option>
-                    </select>
+                    <label for="{{ form.status.id_for_label }}">Status</label>
+                    {{ form.status }}
+                    {% for error in form.status.errors %}<small class="text-danger">{{ error }}</small>{% endfor %}
+                </div>
+
+                <div class="form-group mb-3 select-wrapper">
+                    <label for="{{ form.category.id_for_label }}">Category</label>
+                    {{ form.category }}
+                    {% for error in form.category.errors %}<small class="text-danger">{{ error }}</small>{% endfor %}
+                </div>
+
+                <div class="form-group mb-3 select-wrapper">
+                    <label for="{{ form.tags.id_for_label }}">Tags</label>
+                    {{ form.tags }}
+                    {% for error in form.tags.errors %}<small class="text-danger">{{ error }}</small>{% endfor %}
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="{{ form.published_date.id_for_label }}">Publish Date</label>
+                    {{ form.published_date }}
+                    {% for error in form.published_date.errors %}
+                        <small class="text-danger">{{ error }}</small>{% endfor %}
                 </div>
 
                 <div class="form-group full mb-3">
-                    <label for="id_content">Content</label>
-                    <textarea id="id_content" name="content" rows="10" placeholder="Write your post content..." required></textarea>
+                    <label for="{{ form.content.id_for_label }}">Content</label>
+                    {{ form.content }}
+                    {% for error in form.content.errors %}<small class="text-danger">{{ error }}</small>{% endfor %}
+                </div>
+                <div class="form-group full mb-3">
+                    <label for="{{ form.content.id_for_label }}">Image</label>
+                    {{ form.image }}
+                    {% for error in form.content.errors %}<small class="text-danger">{{ error }}</small>{% endfor %}
+
                 </div>
 
                 <div class="form-actions">
@@ -32,6 +63,5 @@
             </form>
         </div>
     </main>
-</body>
-</html>
+
 {% endblock content %}

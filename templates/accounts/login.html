@@ -8,15 +8,20 @@
                 <h2>Welcome Back</h2>
                 <p class="auth-subtitle">Login to your account to continue</p>
 
-                <form class="auth-form" action="#" method="post">
+                <form class="auth-form" action="{% url 'accounts:login' %}" method="post">
+                    {% csrf_token %}
                     <div class="form-group">
-                        <label for="email">Email or Username</label>
-                        <input type="email" id="email" name="email" required>
+                        <label for="{{ login_form.username.id_for_label }}">Email or Username</label>
+                        {{ login_form.username }}
+                        {% for error in login_form.username.errors %}
+                            <small class="text-danger">{{ error }}</small>{% endfor %}
                     </div>
 
                     <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" id="password" name="password" required>
+                        <label for="{{ login_form.password.id_for_label }}">Password</label>
+                        {{ login_form.password }}
+                        {% for error in login_form.password.errors %}
+                            <small class="text-danger">{{ error }}</small>{% endfor %}
                     </div>
 
                     <div class="form-options">
@@ -26,12 +31,25 @@
                         </label>
                         <a href="{% url 'accounts:password_reset' %}" class="forgot-link">Forgot password?</a>
                     </div>
+                
+                    {% if login_form.non_field_errors %}
+                        <div class="text text-danger">
+                            {% for error in login_form.non_field_errors %}
+                                {% if "accounts.CustomUser" in error|striptags %}
+                                    Invalid username or password.
+                                {% else %}
+                                    {{ error }}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
 
                     <button type="submit" class="auth-button">Login</button>
                 </form>
 
                 <div class="auth-links">
-                    <p>Don't have an account? <a href="{% url 'accounts:signup' %}" class="switch-form">Create one here</a></p>
+                    <p>Don't have an account? <a href="{% url 'accounts:signup' %}" class="switch-form">Create one
+                        here</a></p>
                 </div>
             </div>
         </div>

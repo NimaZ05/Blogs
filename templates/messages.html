@@ -13,152 +13,182 @@
         box-shadow: 0 10px 30px var(--shadow-heavy);
         border-radius: 12px;
     }
+
     .swal2-title {
         color: var(--text-primary);
         font-weight: 800;
     }
-    .swal2-html-container { color: var(--text-secondary); }
-    .swal2-icon.swal2-success { border-color: var(--accent-primary); color: var(--accent-primary); }
-    .swal2-icon.swal2-info    { border-color: var(--accent-secondary); color: var(--accent-secondary); }
-    .swal2-icon.swal2-warning { border-color: #f59e0b; color: #f59e0b; }
-    .swal2-icon.swal2-error   { border-color: #ef4444; color: #ef4444; }
+
+    .swal2-html-container {
+        color: var(--text-secondary);
+    }
+
+    .swal2-icon.swal2-success {
+        border-color: var(--accent-primary);
+        color: var(--accent-primary);
+    }
+
+    .swal2-icon.swal2-info {
+        border-color: var(--accent-secondary);
+        color: var(--accent-secondary);
+    }
+
+    .swal2-icon.swal2-warning {
+        border-color: #f59e0b;
+        color: #f59e0b;
+    }
+
+    .swal2-icon.swal2-error {
+        border-color: #ef4444;
+        color: #ef4444;
+    }
+
     .swal2-styled.swal2-confirm {
         background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
         border: none;
         border-radius: 999px;
         box-shadow: 0 4px 12px var(--shadow-accent);
     }
+
     .swal2-styled.swal2-cancel {
         background: var(--bg-tertiary);
         color: var(--text-secondary);
         border: 1px solid var(--border-color);
         border-radius: 999px;
     }
-    .swal2-toast { border-radius: 12px; }
-    .swal2-timer-progress-bar { background: var(--accent-primary); }
+
+    .swal2-toast {
+        border-radius: 12px;
+    }
+
+    .swal2-timer-progress-bar {
+        background: var(--accent-primary);
+    }
 </style>
 
 {# Render Django messages if provided; otherwise fall back to globals #}
 {% if messages %}
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-  {% for message in messages %}
-  Swal.fire({
-    title: "{{ message.tags|capfirst }}",
-    text: "{{ message|escapejs }}",
-    icon: "{% if 'error' in message.tags %}error{% elif 'success' in message.tags %}success{% else %}info{% endif %}",
-    confirmButtonText: "OK"
-  });
-  {% endfor %}
-});
-</script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            {% for message in messages %}
+                Swal.fire({
+                    title: "{{ message.tags|capfirst }}",
+                    text: "{{ message|escapejs }}",
+                    icon: "{% if 'error' in message.tags %}error{% elif 'success' in message.tags %}success{% else %}
+                        info{% endif %}",
+                    confirmButtonText: "OK"
+                });
+            {% endfor %}
+        });
+    </script>
 {% else %}
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-  if (window.DJANGO_MESSAGES && Array.isArray(window.DJANGO_MESSAGES)) {
-    window.DJANGO_MESSAGES.forEach(function (m) {
-      Swal.fire({
-        icon: m.level || 'info',
-        title: m.title || (m.level ? m.level.toString() : ''),
-        html: m.text || ''
-      });
-    });
-  }
-});
-</script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.DJANGO_MESSAGES && Array.isArray(window.DJANGO_MESSAGES)) {
+                window.DJANGO_MESSAGES.forEach(function (m) {
+                    Swal.fire({
+                        icon: m.level || 'info',
+                        title: m.title || (m.level ? m.level.toString() : ''),
+                        html: m.text || ''
+                    });
+                });
+            }
+        });
+    </script>
 {% endif %}
 
 <script>
-// Guard if loaded multiple times
-(() => {
-  if (window.__messages_init__) return; window.__messages_init__ = true;
+    // Guard if loaded multiple times
+    (() => {
+            if (window.__messages_init__) return;
+            window.__messages_init__ = true;
 
-  // Basic API wrappers
-  function showMessage(type = 'info', title = '', text = '', options = {}) {
-    const icon = type; // 'success' | 'error' | 'warning' | 'info' | 'question'
-    return Swal.fire({
-      icon,
-      title,
-      html: text,
-      confirmButtonText: options.confirmText || 'OK',
-      cancelButtonText: options.cancelText || 'Cancel',
-      showCancelButton: !!options.showCancel,
-      reverseButtons: true,
-      ...options
-    });
-  }
+            // Basic API wrappers
+            function showMessage(type = 'info', title = '', text = '', options = {}) {
+                const icon = type; // 'success' | 'error' | 'warning' | 'info' | 'question'
+                return Swal.fire({
+                    icon,
+                    title,
+                    html: text,
+                    confirmButtonText: options.confirmText || 'OK',
+                    cancelButtonText: options.cancelText || 'Cancel',
+                    showCancelButton: !!options.showCancel,
+                    reverseButtons: true,
+                    ...options
+                });
+            }
 
-  function showToast(type = 'success', title = '', options = {}) {
-    const Toast = Swal.mixin({
-      toast: true,
-      position: options.position || 'top-end',
-      showConfirmButton: false,
-      timer: options.timer || 3000,
-      timerProgressBar: true,
-      showCloseButton: true,
-    });
-    return Toast.fire({ icon: type, title });
-  }
+            function showToast(type = 'success', title = '', options = {}) {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: options.position || 'top-end',
+                    showConfirmButton: false,
+                    timer: options.timer || 3000,
+                    timerProgressBar: true,
+                    showCloseButton: true,
+                });
+                return Toast.fire({icon: type, title});
+            }
 
-  // AJAX form helper (uses Fetch API)
-  async function handleAjaxForm(formSelector, { onSuccess, onError, confirm = false } = {}) {
-    const form = document.querySelector(formSelector);
-    if (!form) return;
+            // AJAX form helper (uses Fetch API)
+            async function handleAjaxForm(formSelector, {onSuccess, onError, confirm = false} = {}) {
+                const form = document.querySelector(formSelector);
+                if (!form) return;
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
+                form.addEventListener('submit', async (e) => {
+                    e.preventDefault();
 
-      if (confirm) {
-        const c = await showMessage('question', confirm.title || 'Are you sure?', confirm.text || '', {
-          showCancel: true
-        });
-        if (!c.isConfirmed) return;
-      }
+                    if (confirm) {
+                        const c = await showMessage('question', confirm.title || 'Are you sure?', confirm.text || '', {
+                            showCancel: true
+                        });
+                        if (!c.isConfirmed) return;
+                    }
 
-      const formData = new FormData(form);
-      const headers = {};
+                    const formData = new FormData(form);
+                    const headers = {};
 
-      // Try to include Django CSRF token if present
-      const csrf = document.querySelector('input[name="csrfmiddlewaretoken"]')?.value;
-      if (csrf) headers['X-CSRFToken'] = csrf;
+                    // Try to include Django CSRF token if present
+                    const csrf = document.querySelector('input[name="csrfmiddlewaretoken"]')?.value;
+                    if (csrf) headers['X-CSRFToken'] = csrf;
 
-      try {
-        const resp = await fetch(form.action || window.location.href, {
-          method: (form.method || 'POST').toUpperCase(),
-          headers,
-          body: formData,
-        });
+                    try {
+                        const resp = await fetch(form.action || window.location.href, {
+                            method: (form.method || 'POST').toUpperCase(),
+                            headers,
+                            body: formData,
+                        });
 
-        const contentType = resp.headers.get('content-type') || '';
-        const isJson = contentType.includes('application/json');
-        const data = isJson ? await resp.json() : await resp.text();
+                        const contentType = resp.headers.get('content-type') || '';
+                        const isJson = contentType.includes('application/json');
+                        const data = isJson ? await resp.json() : await resp.text();
 
-        if (!resp.ok) throw { resp, data };
+                        if (!resp.ok) throw {resp, data};
 
-        showToast('success', (data && data.message) || 'Saved successfully');
-        if (typeof onSuccess === 'function') onSuccess(data, resp);
-      } catch (err) {
-        const msg = err?.data?.message || 'Something went wrong';
-        showMessage('error', 'Request Failed', msg);
-        if (typeof onError === 'function') onError(err);
-      }
-    });
-  }
+                        showToast('success', (data && data.message) || 'Saved successfully');
+                        if (typeof onSuccess === 'function') onSuccess(data, resp);
+                    } catch (err) {
+                        const msg = err?.data?.message || 'Something went wrong';
+                        showMessage('error', 'Request Failed', msg);
+                        if (typeof onError === 'function') onError(err);
+                    }
+                });
+            }
 
-  // Expose globally
-  window.showMessage = showMessage;
-  window.showToast = showToast;
-  window.handleAjaxForm = handleAjaxForm;
+            // Expose globally
+            window.showMessage = showMessage;
+            window.showToast = showToast;
+            window.handleAjaxForm = handleAjaxForm;
 
-  // Optional: render server-sent messages (user will add template tags)
-  // Example usage the user can add in base.html:
-  // <script>
-  //   window.DJANGO_MESSAGES = [
-  //     { level: 'success', title: 'Done', text: 'Your changes were saved.' },
-  //   ];
-  //   (window.DJANGO_MESSAGES || []).forEach(m => showToast(m.level, m.title || m.text));
-  // </script>
-})();
+            // Optional: render server-sent messages (user will add template tags)
+            // Example usage the user can add in base.html:
+            // <script>
+            //   window.DJANGO_MESSAGES = [
+            //     { level: 'success', title: 'Done', text: 'Your changes were saved.' },
+            //   ];
+            //   (window.DJANGO_MESSAGES || []).forEach(m => showToast(m.level, m.title || m.text));
+        }
+    )();
 </script>
 
 
