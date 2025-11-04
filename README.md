@@ -44,7 +44,7 @@ cd Blogs
 ```bash
 python -m venv .venv
 source .venv/bin/activate  
-# On Windows: venv\Scripts\activate
+# On Windows: .venv\Scripts\activate
 ```
 ### 4. Install Dependencies
 
@@ -87,5 +87,6 @@ This project is a work in progress, and there are always better ways to implemen
 2.  **Submit a Pull Request (PR):** Feel free to fork the repository and submit a PR with your fix or feature implementation.
 
 We look forward to collaborating!
+
 
 
