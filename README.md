@@ -37,13 +37,14 @@ Ensure you have Python (3.8+) and Git installed.
 
 ```bash
 git clone https://github.com/NimaZ05/Blogs.git
-cd BLogs  
+cd Blogs  
 ```
 ### 3. Setup Virtual Environment
 
 ```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+python -m venv .venv
+source .venv/bin/activate  
+# On Windows: venv\Scripts\activate
 ```
 ### 4. Install Dependencies
 
@@ -76,9 +77,9 @@ This project is a work in progress, and there are always better ways to implemen
 
 **We appreciate your opinion on:**
 
-* **Code Structure:** Are the helper functions (`paginate_posts`) organized optimally across views?
-* **Query Performance:** Are there further ways to reduce database load in the list views?
-* **Template Logic:** Could the complex pagination or filtering logic in `blog.html` be simplified or made more robust?
+* **Code Structure:**
+* **Query Performance:** 
+* **Template Logic:**
 
 ### Reporting Bugs and Suggestions
 
@@ -86,3 +87,4 @@ This project is a work in progress, and there are always better ways to implemen
 2.  **Submit a Pull Request (PR):** Feel free to fork the repository and submit a PR with your fix or feature implementation.
 
 We look forward to collaborating!
+
