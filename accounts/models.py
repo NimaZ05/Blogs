@@ -17,12 +17,12 @@ class CustomUser(AbstractUser):
 
 class Profile(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    image = models.ImageField(blank=True, default='default.jpg', upload_to='profile_pics')
+    image = models.ImageField(blank=True, default='default.jpg', upload_to='accounts/profile_pics')
     job_title = models.CharField(max_length=100, blank=True, default='No Job')
     location = models.CharField(max_length=100, blank=True, default='No Public Location')
     website = models.URLField(max_length=200, blank=True, null=True, default='No Website')
     bio = models.TextField(max_length=500, blank=True,
-                           default="Unfortunately This User Doesn't Want To Share Anything")
+                            default="Unfortunately This User Doesn't Want To Share Anything")
     slug = models.SlugField(unique=True, null=True, blank=True, max_length=255)
 
     def __init__(self, *args, **kwargs):

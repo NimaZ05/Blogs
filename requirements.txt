@@ -1,6 +1,7 @@
 asgiref==3.9.2
 Django==5.2.7
 django-phonenumber-field==8.3.0
+django-widget-tweaks==1.5.0
 phonenumbers==9.0.16
 phonenumberslite==9.0.16
 pillow==11.3.0

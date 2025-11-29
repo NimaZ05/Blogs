@@ -4,71 +4,69 @@
 
     <main class="content">
         <section class="page-card">
-            <h1 class="page-title">Profile</h1>
-            <p class="page-subtitle">Manage your account information and preferences</p>
+            <!-- Title shows the public username -->
+            <h1 class="page-title">{{ user_data.username }}'s Public Profile</h1>
+            <p class="page-subtitle">Public information shared by the user.</p>
+
             <div class="profile-grid static">
+
                 <div class="profile-photo">
                     <div class="photo-frame">
-
-                        {% if profile_data.image %}
-                            <img src="{{ profile_data.image.url }}" alt="Profile Photo">
+                        <!-- Uses profile_data for image -->
+                        {% if profile_data.image.url != '/media/default.jpg' %}
+                            <img src="{{ profile_data.image.url }}" alt="{{ user_data.username }} Profile Photo">
                         {% else %}
-                            <img src="https://picsum.photos/400" alt="Profile Photo">
+                            <img src="https://picsum.photos/400" alt="Default Profile Photo">
                         {% endif %}
-
                     </div>
-                    {% comment %} <label class="upload-btn">
-                        <input type="file" accept="image/*">
-                        Change Photo
-                    </label> {% endcomment %}
                 </div>
+
                 <div class="profile-info">
-                    <h2 class="info-name">{{ profile_data.user.username }}</h2>
+                    <!-- Display Job Title from Profile Data -->
+                    <h2 class="info-name">{{ user_data.username }}</h2>
                     <p class="info-role">{{ profile_data.job_title }}</p>
+
                     <ul class="info-list">
+                        <!-- Uses user_data for the core username -->
                         <li>
-                            <span class="info-label">UserName</span>
-                            <span class="info-value">{{ profile_data.user.username }}</span>
+                            <span class="info-label">Username</span>
+                            <span class="info-value">{{ user_data.username }}</span>
                         </li>
+
+                        <!-- EMAIL IS EXCLUDED FROM THE PUBLIC PROFILE FOR SECURITY -->
+
+                        <!-- Location from Profile Data -->
                         <li>
-                            <span class="info-label">Email</span>
-                            <span class="info-value">{{ profile_data.user.email }}</span>
-                        </li>
-                        <li>
+                            <span class="info-label">Location</span>
                             {% if profile_data.location %}
-                                <span class="info-label">Location</span>
                                 <span class="info-value">{{ profile_data.location }}</span>
                             {% else %}
-                                <span class="info-label">Location</span>
-                                <span class="info-value">User Has No Public Location</span>
+                                <span class="info-value">Not publicly listed</span>
                             {% endif %}
                         </li>
+
+                        <!-- Website from Profile Data -->
                         <li>
+                            <span class="info-label">Website</span>
                             {% if profile_data.website %}
-                                <span class="info-label">Website</span>
-                                <span class="info-value">{{ profile_data.website }}</span>
+                                <span class="info-value"><a href="{{ profile_data.website }}"
+                                                            target="_blank">{{ profile_data.website }}</a></span>
                             {% else %}
-                                <span class="info-label">Website</span>
                                 <span class="info-value">No Website</span>
                             {% endif %}
                         </li>
+
                         <li>
+                            <span class="info-label">Bio</span>
                             {% if profile_data.bio %}
-                                <span class="info-label">Bio</span>
-                                <span class="info-value">{{ profile_data.bio }}</span>
+                                <span class="info-value bio-text">{{ profile_data.bio }}</span>
                             {% else %}
-                                <span class="info-label">Bio</span>
-                                <span class="info-value">Unfortunately This User Doesn't Want To Share Anything</span>
+                                <span class="info-value">This user has not shared a public bio.</span>
                             {% endif %}
                         </li>
+
                     </ul>
-
-
                     <div class="profile-actions">
-                        <a href="{% url 'accounts:password_change' %}" class="action-btn">Change Password</a>
-                        <a href="{% url 'accounts:profile_edit' %}" class="action-btn">Edit Profile</a>
-                        <a href="{% url 'accounts:delete_account' %}" class="action-btn danger">Delete Account</a>
-                        <a href="{% url 'accounts:logout' %}" class="action-btn danger">Logout</a>
                     </div>
                 </div>
             </div>

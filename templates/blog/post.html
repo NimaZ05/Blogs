@@ -53,15 +53,13 @@
         <!-- Author Section -->
         <div class="post-author">
             <div class="author-avatar">
-                <img src="{{user.image.url}}" alt="{{ post.author }}"/>
+                <img src="{{user_profile.image.url}}" alt="{{ post.author }}"/>
             </div>
             <div class="author-info">
                 <h3 class="author-name"><a
-                        href="{% url 'accounts:profile' %}">{{ post.author }}</a>  <!--  'blog:author' author_username=post.author.username -->
+                        href="{% url 'accounts:user_profile' slug=post.author.profile.slug %}">{{ post.author }}</a>  <!--  'blog:author' author_username=post.author.username -->
                 </h3>
-                <p class="author-bio">UI/UX Designer with 5+ years of experience in creating accessible and
-                    beautiful digital experiences. Passionate about inclusive design and user-centered
-                    solutions.</p>
+                <p class="author-bio">{{ profile_data.user.bio }}</p>
                 <div class="author-social">
                     <a href="#" class="social-link">Twitter</a>
                     <a href="#" class="social-link">LinkedIn</a>
