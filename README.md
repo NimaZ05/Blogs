@@ -56,7 +56,7 @@ pip install -r requirements.txt
 
 ```bash
 # Run migrations
-python manage.py makemigrations
+python manage.py makemigrations accounts pages blog
 python manage.py migrate
 
 # Create a Superuser
@@ -87,6 +87,7 @@ This project is a work in progress, and there are always better ways to implemen
 2.  **Submit a Pull Request (PR):** Feel free to fork the repository and submit a PR with your fix or feature implementation.
 
 We look forward to collaborating!
+
 
 
 
